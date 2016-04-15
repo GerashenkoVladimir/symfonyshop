@@ -8,6 +8,11 @@ class ProductsController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('ShopBundle::index.html.twig');
+        return $this->render('@Shop/products/index.html.twig');
+    }
+
+    public function showAction()
+    {
+        return $this->render('@Shop/products/show.html.twig');
     }
 }
