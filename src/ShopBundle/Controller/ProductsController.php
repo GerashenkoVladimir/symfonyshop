@@ -8,7 +8,9 @@ class ProductsController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('@Shop/products/index.html.twig');
+        $repository = $this->getDoctrine()->getRepository('ShopBundle:Categories');
+        $categories = $repository->findAll();
+        return $this->render('@Shop/products/index.html.twig',array('categories' => $categories));
     }
 
     public function showAction()

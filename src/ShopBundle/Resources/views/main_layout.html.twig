@@ -30,11 +30,9 @@
                         <a href="#" class="dropdown-toggle main-menu-links" data-toggle="dropdown">Категории <b
                                     class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Категория 1</a></li>
-                            <li><a href="#">Категория 2</a></li>
-                            <li><a href="#">Категория 3</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#">Категория 4</a></li>
+                            {% for  category in categories %}
+                                <li><a href="#">{{ category.name }}</a></li>
+                            {% endfor %}
                         </ul>
                     </li>
                     <li><a class="main-menu-links" href="#">Поиск</a></li>
@@ -46,146 +44,7 @@
         </div>
     </div>
     {% block content %}
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-6 col-sm-4">
-                    <div class="thumbnail">
-                        <img src="{{ asset('bundles/shop/images/phone.jpg') }}" alt="">
-                        <div class="caption">
-                            <h3><a href="#">Cмартфоны</a></h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur atque, commodi
-                                consectetur cum debitis doloremque eligendi fugit illo impedit nihil perspiciatis soluta
-                                voluptas voluptatem. Amet eius id nulla sunt tempore.</p>
-                            <a href="#" class="btn btn-success">Подробнее <i class="fa fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-6 col-sm-4">
-                    <div class="thumbnail">
-                        <img src="{{ asset('bundles/shop/images/notebook.jpg') }}" alt="">
-                        <div class="caption">
-                            <h3><a href="#">Ноутбуки</a></h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur atque, commodi
-                                consectetur cum debitis doloremque eligendi fugit illo impedit nihil perspiciatis soluta
-                                voluptas voluptatem. Amet eius id nulla sunt tempore.</p>
-                            <a href="#" class="btn btn-success">Подробнее <i class="fa fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-6 col-sm-4">
-                    <div class="thumbnail">
-                        <img src="{{ asset('bundles/shop/images/monitor.jpg') }}" alt="">
-                        <div class="caption">
-                            <h3><a href="#">Мониторы</a></h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur atque, commodi
-                                consectetur cum debitis doloremque eligendi fugit illo impedit nihil perspiciatis soluta
-                                voluptas voluptatem. Amet eius id nulla sunt tempore.</p>
-                            <a href="#" class="btn btn-success">Подробнее <i class="fa fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-6 col-sm-4">
-                    <div class="thumbnail">
-                        <img src="{{ asset('bundles/shop/images/tab.jpg') }}" alt="">
-                        <div class="caption">
-                            <h3><a href="#">Планшеты</a></h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur atque, commodi
-                                consectetur cum debitis doloremque eligendi fugit illo impedit nihil perspiciatis soluta
-                                voluptas voluptatem. Amet eius id nulla sunt tempore.</p>
-                            <a href="#" class="btn btn-success">Подробнее <i class="fa fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-6 col-sm-4">
-                    <div class="thumbnail">
-                        <img src="{{ asset('bundles/shop/images/mouse.png') }}" alt="">
-                        <div class="caption">
-                            <h3><a href="#">Компьютерные мыши</a></h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur atque, commodi
-                                consectetur cum debitis doloremque eligendi fugit illo impedit nihil perspiciatis soluta
-                                voluptas voluptatem. Amet eius id nulla sunt tempore.</p>
-                            <a href="#" class="btn btn-success">Подробнее <i class="fa fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-6 col-sm-4">
-                    <div class="thumbnail">
-                        <img src="{{ asset('bundles/shop/images/keyboard.png') }}" alt="">
-                        <div class="caption">
-                            <h3><a href="#">Клавиатуры</a></h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur atque, commodi
-                                consectetur cum debitis doloremque eligendi fugit illo impedit nihil perspiciatis soluta
-                                voluptas voluptatem. Amet eius id nulla sunt tempore.</p>
-                            <a href="#" class="btn btn-success">Подробнее <i class="fa fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-6 col-sm-4">
-                    <div class="thumbnail">
-                        <img src="{{ asset('bundles/shop/images/gamepad.png') }}" alt="">
-                        <div class="caption">
-                            <h3><a href="#">Геймпады</a></h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur atque, commodi
-                                consectetur cum debitis doloremque eligendi fugit illo impedit nihil perspiciatis soluta
-                                voluptas voluptatem. Amet eius id nulla sunt tempore.</p>
-                            <a href="#" class="btn btn-success">Подробнее <i class="fa fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-6 col-sm-4">
-                    <div class="thumbnail">
-                        <img src="{{ asset('bundles/shop/images/headphones.png') }}" alt="">
-                        <div class="caption">
-                            <h3><a href="#">Наушники</a></h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur atque, commodi
-                                consectetur cum debitis doloremque eligendi fugit illo impedit nihil perspiciatis soluta
-                                voluptas voluptatem. Amet eius id nulla sunt tempore.</p>
-                            <a href="#" class="btn btn-success">Подробнее <i class="fa fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-6 col-sm-4">
-                    <div class="thumbnail">
-                        <img src="{{ asset('bundles/shop/images/pc.jpg') }}" alt="">
-                        <div class="caption">
-                            <h3><a href="#">Системные блоки</a></h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur atque, commodi
-                                consectetur cum debitis doloremque eligendi fugit illo impedit nihil perspiciatis soluta
-                                voluptas voluptatem. Amet eius id nulla sunt tempore.</p>
-                            <a href="#" class="btn btn-success">Подробнее <i class="fa fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <nav  class="text-center">
-                <ul class="pagination pagination-sm">
-                    <li>
-                        <a href="#">
-                            <i class="fa fa-chevron-left"></i>
-                            <i class="fa fa-chevron-left"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-chevron-left"></i></a>
-                    </li>
-                    <li class="active"><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li><a href="#">6</a></li>
-                    <li>
-                        <a href="#"><i class="fa fa-chevron-right"></i></a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fa fa-chevron-right"></i>
-                            <i class="fa fa-chevron-right"></i>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
+
     {% endblock %}
     <div class="modal fade" id="modal-1">
         <div class="modal-dialog modal-sm">
@@ -211,7 +70,7 @@
     </div>
 {% endblock %}
 {% block javascripts %}
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="{{ asset('bundles/shop/js/jquery-1.12.3.js') }}"></script>
     <script src="{{ asset('bundles/shop/bootstrap/js/bootstrap.js') }}"></script>
 {% endblock %}
 </body>
