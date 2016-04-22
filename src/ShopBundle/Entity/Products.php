@@ -20,7 +20,7 @@ class Products
     /**
      * @var float
      */
-    private $price = '0';
+    private $price;
 
     /**
      * @var string
@@ -182,3 +182,4 @@ class Products
         return $this->producers;
     }
 }
+

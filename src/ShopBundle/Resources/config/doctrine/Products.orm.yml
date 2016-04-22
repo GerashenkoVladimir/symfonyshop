@@ -1,61 +1,33 @@
 ShopBundle\Entity\Products:
     type: entity
-    table: products
-    indexes:
-        fk_products_producers_idx:
-            columns:
-                - producers_id
-        fk_products_categories_idx:
-            columns:
-                - categories_id
+    table: null
+    repositoryClass: ShopBundle\Repository\ProductsRepository
     id:
         id:
             type: integer
-            nullable: false
             options:
                 unsigned: true
             id: true
         name:
             type: string
-            nullable: false
-            length: 255
-            options:
-                fixed: false
+            length: 128
             id: true
         price:
             type: float
-            nullable: false
-            precision: 10
-            scale: 0
-            options:
-                default: '0'
             id: true
     fields:
         description:
             type: text
             nullable: true
-            length: 65535
-            options:
-                fixed: false
     manyToOne:
         categories:
-            targetEntity: Products
-            cascade: {  }
-            fetch: LAZY
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
+            targetEntity: ShopBundle\Entity\Products
+            jounColumns:
                 categories_id:
                     referencedColumnName: id
-            orphanRemoval: false
         producers:
-            targetEntity: Producers
-            cascade: {  }
-            fetch: LAZY
-            mappedBy: null
-            inversedBy: null
+            targetEntity: ShopBundle\Entity\Producers
             joinColumns:
                 producers_id:
                     referencedColumnName: id
-            orphanRemoval: false
     lifecycleCallbacks: {  }

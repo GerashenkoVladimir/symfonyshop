@@ -1,7 +1,10 @@
-ShopBundle\Entity\Categories:
+ShopBundle\Entity\Producers:
     type: entity
-    table: null
-    repositoryClass: ShopBundle\Repository\CategoriesRepository
+    table: producers
+    uniqueConstraints:
+        name_unique:
+            columns:
+                - name
     id:
         id:
             type: integer
@@ -14,6 +17,8 @@ ShopBundle\Entity\Categories:
     fields:
         name:
             type: string
+            nullable: false
             length: 128
-            unique: true
+            options:
+                fixed: false
     lifecycleCallbacks: {  }

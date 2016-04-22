@@ -1,11 +1,13 @@
 ShopBundle\Entity\Categories:
     type: entity
-    table: null
-    repositoryClass: ShopBundle\Repository\CategoriesRepository
+    table: categories
+    uniqueConstraints:
+        name_unique:
+            columns:
+                - name
     id:
         id:
             type: integer
-            nullable: false
             options:
                 unsigned: true
             id: true
@@ -15,5 +17,4 @@ ShopBundle\Entity\Categories:
         name:
             type: string
             length: 128
-            unique: true
     lifecycleCallbacks: {  }
