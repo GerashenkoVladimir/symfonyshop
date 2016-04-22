@@ -1,16 +1,24 @@
 ShopBundle\Entity\Producers:
     type: entity
-    table: null
-    repositoryClass: ShopBundle\Repository\ProducersRepository
+    table: producers
+    uniqueConstraints:
+        name_unique:
+            columns:
+                - name
     id:
         id:
             type: integer
+            nullable: false
+            options:
+                unsigned: true
             id: true
             generator:
-                strategy: AUTO
+                strategy: IDENTITY
     fields:
         name:
             type: string
-            length: '128'
-            unique: true
+            nullable: false
+            length: 128
+            options:
+                fixed: false
     lifecycleCallbacks: {  }

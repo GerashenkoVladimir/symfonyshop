@@ -8,7 +8,7 @@ namespace ShopBundle\Entity;
 class Customers
 {
     /**
-     * @var int
+     * @var integer
      */
     private $id;
 
@@ -33,7 +33,7 @@ class Customers
     private $secondName;
 
     /**
-     * @var int
+     * @var boolean
      */
     private $age;
 
@@ -58,12 +58,12 @@ class Customers
     private $street;
 
     /**
-     * @var int
+     * @var integer
      */
     private $numberOfHouse;
 
     /**
-     * @var int
+     * @var integer
      */
     private $numberOfFlat;
 
@@ -71,7 +71,7 @@ class Customers
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -177,7 +177,7 @@ class Customers
     /**
      * Set age
      *
-     * @param integer $age
+     * @param boolean $age
      *
      * @return Customers
      */
@@ -191,7 +191,7 @@ class Customers
     /**
      * Get age
      *
-     * @return int
+     * @return boolean
      */
     public function getAge()
     {
@@ -311,7 +311,7 @@ class Customers
     /**
      * Get numberOfHouse
      *
-     * @return int
+     * @return integer
      */
     public function getNumberOfHouse()
     {
@@ -335,7 +335,7 @@ class Customers
     /**
      * Get numberOfFlat
      *
-     * @return int
+     * @return integer
      */
     public function getNumberOfFlat()
     {

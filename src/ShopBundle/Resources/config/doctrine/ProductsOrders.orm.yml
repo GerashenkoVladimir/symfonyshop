@@ -1,0 +1,39 @@
+ShopBundle\Entity\ProductsOrders:
+    type: entity
+    table: products_orders
+    indexes:
+        fk_products_orders_orders_idx:
+            columns:
+                - order_id
+        fk_products_orders_products_idx:
+            columns:
+                - product_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            id: true
+    oneToOne:
+        order:
+            targetEntity: Orders
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                order_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        product:
+            targetEntity: Products
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                product_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

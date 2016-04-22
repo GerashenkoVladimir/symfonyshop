@@ -8,20 +8,39 @@ namespace ShopBundle\Entity;
 class Orders
 {
     /**
-     * @var int
+     * @var integer
      */
     private $id;
 
     /**
      * @var string
      */
-    private $orderNumber;
+    private $orderNumber = '';
 
+    /**
+     * @var \ShopBundle\Entity\Customers
+     */
+    private $customers;
+
+
+    /**
+     * Set id
+     *
+     * @param integer $id
+     *
+     * @return Orders
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
 
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -50,5 +69,29 @@ class Orders
     public function getOrderNumber()
     {
         return $this->orderNumber;
+    }
+
+    /**
+     * Set customers
+     *
+     * @param \ShopBundle\Entity\Customers $customers
+     *
+     * @return Orders
+     */
+    public function setCustomers(\ShopBundle\Entity\Customers $customers = null)
+    {
+        $this->customers = $customers;
+
+        return $this;
+    }
+
+    /**
+     * Get customers
+     *
+     * @return \ShopBundle\Entity\Customers
+     */
+    public function getCustomers()
+    {
+        return $this->customers;
     }
 }

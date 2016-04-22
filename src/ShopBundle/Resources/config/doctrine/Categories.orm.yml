@@ -1,19 +1,24 @@
 ShopBundle\Entity\Categories:
     type: entity
-    table: null
-    repositoryClass: ShopBundle\Repository\CategoriesRepository
-    oneToMany:
-        products:
-            targetEntity: ShopBundle\Entity\Products
-            mappedBy: category
+    table: categories
+    uniqueConstraints:
+        name_unique:
+            columns:
+                - name
     id:
         id:
             type: integer
+            nullable: false
+            options:
+                unsigned: true
             id: true
             generator:
-                strategy: AUTO
+                strategy: IDENTITY
     fields:
         name:
             type: string
+            nullable: false
             length: 128
+            options:
+                fixed: false
     lifecycleCallbacks: {  }

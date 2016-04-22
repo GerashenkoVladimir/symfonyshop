@@ -1,48 +1,83 @@
 ShopBundle\Entity\Customers:
     type: entity
-    table: null
-    repositoryClass: ShopBundle\Repository\CustomersRepository
+    table: customers
+    uniqueConstraints:
+        email_unique:
+            columns:
+                - email
     id:
         id:
             type: integer
+            nullable: false
+            options:
+                unsigned: true
             id: true
             generator:
-                strategy: AUTO
+                strategy: IDENTITY
     fields:
         email:
             type: string
-            length: '128'
-            unique: true
+            nullable: false
+            length: 128
+            options:
+                fixed: false
         password:
             type: string
-            length: '128'
+            nullable: false
+            length: 128
+            options:
+                fixed: false
         firstName:
             type: string
-            length: '128'
+            nullable: false
+            length: 128
+            options:
+                fixed: false
+            column: first_name
         secondName:
             type: string
-            length: '128'
+            nullable: false
+            length: 128
+            options:
+                fixed: false
+            column: second_name
         age:
-            type: smallint
+            type: boolean
+            nullable: false
         country:
             type: string
-            length: '45'
+            nullable: false
+            length: 45
+            options:
+                fixed: false
         region:
             type: string
-            length: '45'
+            nullable: false
+            length: 45
+            options:
+                fixed: false
         city:
             type: string
-            length: '45'
+            nullable: false
+            length: 45
+            options:
+                fixed: false
         street:
             type: string
-            length: '45'
-        numberOfHouse:
-            type: smallint
+            nullable: false
+            length: 45
             options:
-                unsigned: true
-        numberOfFlat:
-            type: smallint
+                fixed: false
+        numberOfHouse:
+            type: integer
             nullable: true
             options:
                 unsigned: true
+            column: number_of_house
+        numberOfFlat:
+            type: integer
+            nullable: true
+            options:
+                unsigned: true
+            column: number_of_flat
     lifecycleCallbacks: {  }

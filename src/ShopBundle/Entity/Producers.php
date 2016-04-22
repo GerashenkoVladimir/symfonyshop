@@ -8,7 +8,7 @@ namespace ShopBundle\Entity;
 class Producers
 {
     /**
-     * @var int
+     * @var integer
      */
     private $id;
 
@@ -21,7 +21,7 @@ class Producers
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {

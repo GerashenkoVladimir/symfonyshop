@@ -7,7 +7,11 @@ namespace ShopBundle\Entity;
  */
 class Products
 {
-   
+    /**
+     * @var integer
+     */
+    private $id;
+
     /**
      * @var string
      */
@@ -16,7 +20,7 @@ class Products
     /**
      * @var float
      */
-    private $price;
+    private $price = '0';
 
     /**
      * @var string
@@ -24,10 +28,39 @@ class Products
     private $description;
 
     /**
-     * @var \ShopBundle\Entity\Categories
+     * @var \ShopBundle\Entity\Products
      */
-    private $category;
+    private $categories;
 
+    /**
+     * @var \ShopBundle\Entity\Producers
+     */
+    private $producers;
+
+
+    /**
+     * Set id
+     *
+     * @param integer $id
+     *
+     * @return Products
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Set name
@@ -102,26 +135,50 @@ class Products
     }
 
     /**
-     * Set category
+     * Set categories
      *
-     * @param \ShopBundle\Entity\Categories $category
+     * @param \ShopBundle\Entity\Products $categories
      *
      * @return Products
      */
-    public function setCategory(\ShopBundle\Entity\Categories $category = null)
+    public function setCategories(\ShopBundle\Entity\Products $categories = null)
     {
-        $this->category = $category;
+        $this->categories = $categories;
 
         return $this;
     }
 
     /**
-     * Get category
+     * Get categories
      *
-     * @return \ShopBundle\Entity\Categories
+     * @return \ShopBundle\Entity\Products
      */
-    public function getCategory()
+    public function getCategories()
     {
-        return $this->category;
+        return $this->categories;
+    }
+
+    /**
+     * Set producers
+     *
+     * @param \ShopBundle\Entity\Producers $producers
+     *
+     * @return Products
+     */
+    public function setProducers(\ShopBundle\Entity\Producers $producers = null)
+    {
+        $this->producers = $producers;
+
+        return $this;
+    }
+
+    /**
+     * Get producers
+     *
+     * @return \ShopBundle\Entity\Producers
+     */
+    public function getProducers()
+    {
+        return $this->producers;
     }
 }

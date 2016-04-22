@@ -1,14 +1,13 @@
-ShopBundle\Entity\Orders:
+ShopBundle\Entity\ShoppingBasket:
     type: entity
-    table: orders
+    table: shopping_basket
     indexes:
-        fk_orders_customers_idx:
+        fk_shopping_basket_customers_idx:
             columns:
                 - customers_id
-    uniqueConstraints:
-        order_number_unique:
+        fk_shopping_basket_products_idx:
             columns:
-                - order_number
+                - products_id
     id:
         id:
             type: integer
@@ -16,15 +15,6 @@ ShopBundle\Entity\Orders:
             options:
                 unsigned: true
             id: true
-        orderNumber:
-            type: string
-            nullable: false
-            length: 10
-            options:
-                fixed: false
-                default: ''
-            id: true
-            column: order_number
     oneToOne:
         customers:
             targetEntity: Customers
@@ -34,6 +24,16 @@ ShopBundle\Entity\Orders:
             inversedBy: null
             joinColumns:
                 customers_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        products:
+            targetEntity: Products
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                products_id:
                     referencedColumnName: id
             orphanRemoval: false
     lifecycleCallbacks: {  }
