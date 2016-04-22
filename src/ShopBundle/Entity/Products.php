@@ -7,11 +7,7 @@ namespace ShopBundle\Entity;
  */
 class Products
 {
-    /**
-     * @var int
-     */
-    private $id;
-
+   
     /**
      * @var string
      */
@@ -27,16 +23,11 @@ class Products
      */
     private $description;
 
-
     /**
-     * Get id
-     *
-     * @return int
+     * @var \ShopBundle\Entity\Categories
      */
-    public function getId()
-    {
-        return $this->id;
-    }
+    private $category;
+
 
     /**
      * Set name
@@ -109,11 +100,6 @@ class Products
     {
         return $this->description;
     }
-    /**
-     * @var \ShopBundle\Entity\Categories
-     */
-    private $category;
-
 
     /**
      * Set category
@@ -122,7 +108,7 @@ class Products
      *
      * @return Products
      */
-    public function setCategory(Categories $category = null)
+    public function setCategory(\ShopBundle\Entity\Categories $category = null)
     {
         $this->category = $category;
 

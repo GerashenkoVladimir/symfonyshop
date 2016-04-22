@@ -9,6 +9,7 @@ ShopBundle\Entity\Products:
             joinColumn:
                 name: category_id
                 referencedColumnName: id
+
     id:
         id:
             type: integer
@@ -21,6 +22,8 @@ ShopBundle\Entity\Products:
             length: 255
         price:
             type: float
+            options:
+                unsigned: true
         description:
             type: text
             nullable: true

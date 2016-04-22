@@ -38,7 +38,11 @@ ShopBundle\Entity\Customers:
             length: '45'
         numberOfHouse:
             type: smallint
+            options:
+                unsigned: true
         numberOfFlat:
             type: smallint
             nullable: true
+            options:
+                unsigned: true
     lifecycleCallbacks: {  }
