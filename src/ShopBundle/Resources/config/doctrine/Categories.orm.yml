@@ -2,6 +2,10 @@ ShopBundle\Entity\Categories:
     type: entity
     table: null
     repositoryClass: ShopBundle\Repository\CategoriesRepository
+    oneToMany:
+        products:
+            targetEntity: ShopBundle\Entity\Products
+            mappedBy: category
     id:
         id:
             type: integer
@@ -11,5 +15,5 @@ ShopBundle\Entity\Categories:
     fields:
         name:
             type: string
-            length: 255
+            length: 128
     lifecycleCallbacks: {  }

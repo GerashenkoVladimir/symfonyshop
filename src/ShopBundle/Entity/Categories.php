@@ -2,6 +2,8 @@
 
 namespace ShopBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 /**
  * Categories
  */
@@ -51,5 +53,50 @@ class Categories
     {
         return $this->name;
     }
-}
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $products;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->products = new ArrayCollection();
+    }
+
+    /**
+     * Add product
+     *
+     * @param \ShopBundle\Entity\Products $product
+     *
+     * @return Categories
+     */
+    public function addProduct(Products $product)
+    {
+        $this->products[] = $product;
+
+        return $this;
+    }
+
+    /**
+     * Remove product
+     *
+     * @param \ShopBundle\Entity\Products $product
+     */
+    public function removeProduct(Products $product)
+    {
+        $this->products->removeElement($product);
+    }
+
+    /**
+     * Get products
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getProducts()
+    {
+        return $this->products;
+    }
+}

@@ -1,0 +1,27 @@
+ShopBundle\Entity\Products:
+    type: entity
+    table: null
+    repositoryClass: ShopBundle\Repository\ProductsRepository
+    manyToOne:
+        category:
+            targetEntity: ShopBundle\Entity\Categories
+            inversedBy: products
+            joinColumn:
+                name: category_id
+                referencedColumnName: id
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+        price:
+            type: float
+        description:
+            type: text
+            nullable: true
+    lifecycleCallbacks: {  }

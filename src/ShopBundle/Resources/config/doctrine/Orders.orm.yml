@@ -1,7 +1,7 @@
-ShopBundle\Entity\Product:
+ShopBundle\Entity\Orders:
     type: entity
     table: null
-    repositoryClass: ShopBundle\Repository\ProductRepository
+    repositoryClass: ShopBundle\Repository\OrdersRepository
     id:
         id:
             type: integer
@@ -9,11 +9,8 @@ ShopBundle\Entity\Product:
             generator:
                 strategy: AUTO
     fields:
-        name:
+        orderNumber:
             type: string
-            length: '500'
-        price:
-            type: float
-        description:
-            type: text
+            length: '10'
+            unique: true
     lifecycleCallbacks: {  }
