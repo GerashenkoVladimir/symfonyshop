@@ -168,3 +168,4 @@ class Products
         return $this->producers;
     }
 }
+
