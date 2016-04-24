@@ -2,20 +2,22 @@ ShopBundle\Entity\Products:
     type: entity
     table: null
     repositoryClass: ShopBundle\Repository\ProductsRepository
+    uniqueConstraints:
+        unique_name_price:
+            columns: [ name, price ]
     id:
         id:
             type: integer
             options:
                 unsigned: true
-            id: true
+            generator:
+                strategy: AUTO
+    fields:
         name:
             type: string
             length: 128
-            id: true
         price:
             type: float
-            id: true
-    fields:
         description:
             type: text
             nullable: true
@@ -25,9 +27,16 @@ ShopBundle\Entity\Products:
             jounColumns:
                 categories_id:
                     referencedColumnName: id
+                    options:
+                        unsigned: true
+                    nullable: false
+
         producers:
             targetEntity: ShopBundle\Entity\Producers
             joinColumns:
                 producers_id:
                     referencedColumnName: id
+                    options:
+                        unsigned: true
+                    nullable: false
     lifecycleCallbacks: {  }

@@ -39,20 +39,6 @@ class Products
 
 
     /**
-     * Set id
-     *
-     * @param integer $id
-     *
-     * @return Products
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
-    /**
      * Get id
      *
      * @return integer
@@ -165,7 +151,7 @@ class Products
      *
      * @return Products
      */
-    public function setProducers(\ShopBundle\Entity\Producers $producers = null)
+    public function setProducers(\ShopBundle\Entity\Producers $producers)
     {
         $this->producers = $producers;
 
@@ -182,4 +168,3 @@ class Products
         return $this->producers;
     }
 }
-

@@ -15,26 +15,24 @@ class Orders
     /**
      * @var string
      */
-    private $orderNumber = '';
+    private $orderNumber;
 
     /**
      * @var \ShopBundle\Entity\Customers
      */
     private $customers;
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $products;
 
     /**
-     * Set id
-     *
-     * @param integer $id
-     *
-     * @return Orders
+     * Constructor
      */
-    public function setId($id)
+    public function __construct()
     {
-        $this->id = $id;
-
-        return $this;
+        $this->products = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -78,7 +76,7 @@ class Orders
      *
      * @return Orders
      */
-    public function setCustomers(\ShopBundle\Entity\Customers $customers = null)
+    public function setCustomers(\ShopBundle\Entity\Customers $customers)
     {
         $this->customers = $customers;
 
@@ -93,5 +91,39 @@ class Orders
     public function getCustomers()
     {
         return $this->customers;
+    }
+
+    /**
+     * Add product
+     *
+     * @param \ShopBundle\Entity\Products $product
+     *
+     * @return Orders
+     */
+    public function addProduct(\ShopBundle\Entity\Products $product)
+    {
+        $this->products[] = $product;
+
+        return $this;
+    }
+
+    /**
+     * Remove product
+     *
+     * @param \ShopBundle\Entity\Products $product
+     */
+    public function removeProduct(\ShopBundle\Entity\Products $product)
+    {
+        $this->products->removeElement($product);
+    }
+
+    /**
+     * Get products
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getProducts()
+    {
+        return $this->products;
     }
 }

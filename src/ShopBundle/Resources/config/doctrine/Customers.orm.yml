@@ -1,0 +1,64 @@
+ShopBundle\Entity\Customers:
+    type: entity
+    table: null
+    repositoryClass: ShopBundle\Repository\CustomersRepository
+    id:
+        id:
+            type: integer
+            id: true
+            options:
+                unsigned: true
+            generator:
+                strategy: AUTO
+    fields:
+        email:
+            type: string
+            length: '128'
+            unique: true
+        password:
+            type: string
+            length: '128'
+        firstName:
+            type: string
+            length: '128'
+        secondName:
+            type: string
+            length: '128'
+        age:
+            type: smallint
+        country:
+            type: string
+            length: '45'
+        region:
+            type: string
+            length: '45'
+        city:
+            type: string
+            length: '45'
+        street:
+            type: string
+            length: '45'
+        numberOfHouse:
+            type: smallint
+        numberOfFlat:
+            type: smallint
+            nullable: true
+
+    manyToMany:
+        products:
+            targetEntity: ShopBundle\Entity\Products
+            joinTable:
+                name: shopping_basket
+                joinColumnName:
+                    customer_id:
+                        referencedColumnName: id
+                        options:
+                            unsigned: true
+                        nullable: false
+                inverseJoinColumnName:
+                    product_id:
+                        referencedColumnName: id
+                        options:
+                            unsigned: true
+                        nullable: false
+    lifecycleCallbacks: {  }
