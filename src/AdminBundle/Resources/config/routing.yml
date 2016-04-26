@@ -1,0 +1,14 @@
+admin_homepage:
+    path:     /admin
+    defaults: { _controller: AdminBundle:Admin:index }
+
+admin_login:
+    path: /admin/login
+    defaults: { _controller: AdminBundle:Admin:login}
+
+admin_logout:
+    path: /admin/logout
+
+admin_add_category:
+    path: /admin/addcategory
+    defaults: { _controller: AdminBundle:Admin:addCategory }

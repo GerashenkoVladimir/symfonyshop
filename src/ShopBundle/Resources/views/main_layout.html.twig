@@ -36,9 +36,11 @@
                         </ul>
                     </li>
                     <li><a class="main-menu-links" href="#">Поиск</a></li>
-                    <li><a class="main-menu-links" href="#" data-toggle="modal" data-target="#modal-1">Авторизация</a>
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') is empty %}
+                        <li><a class="main-menu-links" href="#" data-toggle="modal" data-target="#modal-1">Авторизация</a>
                     </li>
                     <li><a class="main-menu-links" href="#">Регистрация</a></li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
