@@ -16,4 +16,8 @@ ShopBundle\Entity\Categories:
             type: string
             length: 128
             unique: true
+    properties:
+        name:
+            - NotBlank: ~
+
     lifecycleCallbacks: {  }

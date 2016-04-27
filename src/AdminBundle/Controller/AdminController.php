@@ -27,13 +27,26 @@ class AdminController extends Controller
         $form = $this->createFormBuilder($category, array(
             'action' => $this->generateUrl('admin_add_category')
         ))
-            ->add('name', TextType::class)
-//            ->add('image', FileType::class)
-            ->add('save',SubmitType::class, array('label' => 'Save'))
+            ->add('name', TextType::class, array(
+                'label' => 'Название категории: '
+                ))
+            ->add('image', FileType::class, array(
+                'label' => 'Картинка: ',
+            ))
+            ->add('save',SubmitType::class, array('label' => 'Сохранить'))
             ->getForm();
         $form->handleRequest($request);
 
+
         if ($form->isSubmitted() && $form->isValid()) {
+            $name = rand(1,99999).$category->getName();
+
+
+            $form['image']->getData()->move(
+                'C:\xampp\htdocs\symfonyshop\src\ShopBundle\Resources\public\images\uploads\categories',
+                $name
+            );
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($category);
             $em->flush();
