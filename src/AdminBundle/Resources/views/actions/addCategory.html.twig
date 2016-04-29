@@ -1,7 +1,18 @@
 {% extends '@Admin/index.html.twig' %}
 
 {% block admin_panel %}
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
+    {{ form_start(form, {'method': 'POST','attr': {'class': 'navbar_form'}}) }}
+        <div>
+            {{ form_label(form.name) }}
+            {{ form_widget(form.name) }}
+        </div>
+        <div>
+            {{ form_label(form.image) }}
+            {{ form_widget(form.image) }}
+        </div>
+        <div>
+            {{ form_widget(form.save) }}
+        </div>
+
     {{ form_end(form) }}
 {% endblock %}

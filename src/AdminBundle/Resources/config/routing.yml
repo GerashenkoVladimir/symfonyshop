@@ -12,3 +12,11 @@ admin_logout:
 admin_add_category:
     path: /admin/addcategory
     defaults: { _controller: AdminBundle:Admin:addCategory }
+
+admin_add_product:
+    path: /admin/addproduct
+    defaults: { _controller: AdminBundle:Admin:addProduct }
+
+admin_add_producer:
+    path: /admin/addproducer
+    defaults: { _controller: AdminBundle:Admin:addProducer}

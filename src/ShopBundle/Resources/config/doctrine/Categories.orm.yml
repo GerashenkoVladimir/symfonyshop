@@ -16,8 +16,14 @@ ShopBundle\Entity\Categories:
             type: string
             length: 128
             unique: true
+        imageName:
+            type: string
     properties:
         name:
             - NotBlank: ~
+    oneToMany:
+        products:
+            targetEntity: ShopBundle\Entity\Products
+            mappedBy: categories
 
     lifecycleCallbacks: {  }

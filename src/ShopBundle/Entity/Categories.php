@@ -17,24 +17,6 @@ class Categories
      */
     private $name;
 
-    private $image;
-
-    /**
-     * @return mixed
-     */
-    public function getImage()
-    {
-        return $this->image;
-    }
-
-    /**
-     * @param mixed $image
-     */
-    public function setImage($image)
-    {
-        $this->image = $image;
-    }
-
     /**
      * Get id
      *
@@ -68,5 +50,79 @@ class Categories
     {
         return $this->name;
     }
-}
+    /**
+     * @var string
+     */
+    private $imageName;
 
+
+    /**
+     * Set imageName
+     *
+     * @param string $imageName
+     *
+     * @return Categories
+     */
+    public function setImageName($imageName)
+    {
+        $this->imageName = $imageName;
+
+        return $this;
+    }
+
+    /**
+     * Get imageName
+     *
+     * @return string
+     */
+    public function getImageName()
+    {
+        return $this->imageName;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $products;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->products = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add product
+     *
+     * @param \ShopBundle\Entity\Products $product
+     *
+     * @return Categories
+     */
+    public function addProduct(\ShopBundle\Entity\Products $product)
+    {
+        $this->products[] = $product;
+
+        return $this;
+    }
+
+    /**
+     * Remove product
+     *
+     * @param \ShopBundle\Entity\Products $product
+     */
+    public function removeProduct(\ShopBundle\Entity\Products $product)
+    {
+        $this->products->removeElement($product);
+    }
+
+    /**
+     * Get products
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getProducts()
+    {
+        return $this->products;
+    }
+}

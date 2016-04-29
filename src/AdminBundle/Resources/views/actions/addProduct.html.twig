@@ -1,0 +1,41 @@
+{% extends '@Admin/index.html.twig' %}
+
+{% block admin_panel %}
+    <form action="{{ path('admin_add_product') }}" method="post" enctype="multipart/form-data">
+        <div>
+            <label for="productName">Название товара: </label>
+            <input type="text" name="name" id="productName" placeholder="введите название товара">
+        </div>
+        <div>
+            <label for="productPrice">Цена: </label>
+            <input type="text" id="productPrice" name="price" placeholder="введите цену товара">
+        </div>
+        <div>
+            <label for="productDescription">Описание продукта: </label>
+            <textarea name="description" id="productDescription" cols="30" rows="10" placeholder="введите описание  товара"></textarea>
+        </div>
+        <div>
+            <label for="productCategory">Категория товара: </label>
+            <select name="category" id="productCategory">
+                {% for  category in categories %}
+                    <option value="{{ category.id }}">{{ category.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <label for="productProducer">Производитель: </label>
+            <select name="producer" id="productProducer">
+                {% for producer in producers %}
+                    <option value="{{ producer.id }}">{{ producer.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <label for="productImage">Картинка</label>
+            <input type="file" id="productImage" name="image">
+        </div>
+        <div>
+            <input type="submit" value="Сохранить">
+        </div>
+    </form>
+{% endblock %}

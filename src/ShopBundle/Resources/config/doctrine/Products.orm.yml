@@ -21,9 +21,12 @@ ShopBundle\Entity\Products:
         description:
             type: text
             nullable: true
+        imageName:
+            type: string
+            length: 128
     manyToOne:
         categories:
-            targetEntity: ShopBundle\Entity\Products
+            targetEntity: ShopBundle\Entity\Categories
             jounColumns:
                 categories_id:
                     referencedColumnName: id

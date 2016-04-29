@@ -13,8 +13,17 @@ class ProductsController extends Controller
         return $this->render('@Shop/products/index.html.twig',array('categories' => $categories));
     }
 
-    public function showAction()
+    public function showAction($id)
     {
-        return $this->render('@Shop/products/show.html.twig');
+        $category = $this->getDoctrine()->getRepository('ShopBundle:Categories')->find($id);
+        $products = $category->getProducts();
+        
+        $repository = $this->getDoctrine()->getRepository('ShopBundle:Categories');
+        $categories = $repository->findAll();
+        return $this->render('@Shop/products/show.html.twig', array(
+            'categories' => $categories,
+            'category' => $category,
+            'products' => $products, 
+        ));
     }
 }

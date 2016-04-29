@@ -388,4 +388,3 @@ class Customers
         return $this->products;
     }
 }
-

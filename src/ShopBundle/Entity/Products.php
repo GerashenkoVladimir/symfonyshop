@@ -120,19 +120,8 @@ class Products
         return $this->description;
     }
 
-    /**
-     * Set categories
-     *
-     * @param \ShopBundle\Entity\Products $categories
-     *
-     * @return Products
-     */
-    public function setCategories(\ShopBundle\Entity\Products $categories = null)
-    {
-        $this->categories = $categories;
-
-        return $this;
-    }
+    
+    
 
     /**
      * Get categories
@@ -151,7 +140,7 @@ class Products
      *
      * @return Products
      */
-    public function setProducers(\ShopBundle\Entity\Producers $producers)
+    public function setProducer(\ShopBundle\Entity\Producers $producers)
     {
         $this->producers = $producers;
 
@@ -167,5 +156,61 @@ class Products
     {
         return $this->producers;
     }
-}
 
+    /**
+     * Set categories
+     *
+     * @param \ShopBundle\Entity\Categories $categories
+     *
+     * @return Products
+     */
+    public function setCategories(\ShopBundle\Entity\Categories $categories = null)
+    {
+        $this->categories = $categories;
+
+        return $this;
+    }
+
+    /**
+     * Set producers
+     *
+     * @param \ShopBundle\Entity\Producers $producers
+     *
+     * @return Products
+     */
+    public function setProducers(\ShopBundle\Entity\Producers $producers)
+    {
+        $this->producers = $producers;
+
+        return $this;
+    }
+    /**
+     * @var string
+     */
+    private $imageName;
+
+
+    /**
+     * Set imageName
+     *
+     * @param string $imageName
+     *
+     * @return Products
+     */
+    public function setImageName($imageName)
+    {
+        $this->imageName = $imageName;
+
+        return $this;
+    }
+
+    /**
+     * Get imageName
+     *
+     * @return string
+     */
+    public function getImageName()
+    {
+        return $this->imageName;
+    }
+}
