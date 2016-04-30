@@ -11,6 +11,10 @@ ShopBundle\Entity\Customers:
             generator:
                 strategy: AUTO
     fields:
+        username:
+            type: string
+            length: 128
+            unique: true
         email:
             type: string
             length: '128'
@@ -43,7 +47,9 @@ ShopBundle\Entity\Customers:
         numberOfFlat:
             type: smallint
             nullable: true
-
+        role:
+            type: string
+            length: 45
     manyToMany:
         products:
             targetEntity: ShopBundle\Entity\Products

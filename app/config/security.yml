@@ -14,11 +14,17 @@ security:
             entity:
                 class: AdminBundle\Entity\Admin
                 property: username
+        customer_provider:
+            entity:
+                class: ShopBundle\Entity\Customers
+                property: email
 
     encoders:
         Symfony\Component\Security\Core\User\User:
             algorithm: bcrypt
         AdminBundle\Entity\Admin:
+            algorithm: bcrypt
+        ShopBundle\Entity\Customers:
             algorithm: bcrypt
 
     firewalls:
@@ -45,7 +51,19 @@ security:
 #                csrf_token_id: a_private_string
 
         main:
-            context: main
+#            context: main
+            provider: customer_provider
+            pattern: ^/
+            logout:
+                path:   /logout
+                target: /
+            form_login:
+                login_path: shop_login
+                check_path: shop_login
+                always_use_default_target_path: true
+                default_target_path: shop_homepage
+                csrf_token_generator: security.csrf.token_manager
+
             anonymous: ~
             # activate different ways to authenticate
 

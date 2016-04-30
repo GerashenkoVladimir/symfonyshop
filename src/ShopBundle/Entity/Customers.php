@@ -2,10 +2,12 @@
 
 namespace ShopBundle\Entity;
 
+use Symfony\Component\Security\Core\User\UserInterface;
+
 /**
  * Customers
  */
-class Customers
+class Customers implements UserInterface, \Serializable
 {
     /**
      * @var integer
@@ -21,6 +23,11 @@ class Customers
      * @var string
      */
     private $password;
+
+    /**
+     * @var string
+     */
+    private $plainPassword;
 
     /**
      * @var string
@@ -71,6 +78,11 @@ class Customers
      * @var \Doctrine\Common\Collections\Collection
      */
     private $products;
+
+    /**
+     * @var string
+     */
+    private $role;
 
     /**
      * Constructor
@@ -386,5 +398,156 @@ class Customers
     public function getProducts()
     {
         return $this->products;
+    }
+
+    /**
+     * Returns the roles granted to the user.
+     *
+     * <code>
+     * public function getRoles()
+     * {
+     *     return array('ROLE_USER');
+     * }
+     * </code>
+     *
+     * Alternatively, the roles might be stored on a ``roles`` property,
+     * and populated in any number of different ways when the user object
+     * is created.
+     *
+     * @return (Role|string)[] The user roles
+     */
+    public function getRoles()
+    {
+        return array($this->role);
+    }
+
+    /**
+     * Returns the salt that was originally used to encode the password.
+     *
+     * This can return null if the password was not encoded using a salt.
+     *
+     * @return string|null The salt
+     */
+    public function getSalt()
+    {
+        return null;
+    }
+
+    /**
+     * Returns the username used to authenticate the user.
+     *
+     * @return string The username
+     */
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    /**
+     * Removes sensitive data from the user.
+     *
+     * This is important if, at any given point, sensitive information like
+     * the plain-text password is stored on this object.
+     */
+    public function eraseCredentials()
+    {
+    }
+
+    /**
+     * @return string
+     */
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+    /**
+     * @param string $plainPassword
+     */
+    public function setPlainPassword($plainPassword)
+    {
+        $this->plainPassword = $plainPassword;
+    }
+
+
+    /**
+     * Set role
+     *
+     * @param string $role
+     *
+     * @return Customers
+     */
+    public function setRole($role)
+    {
+        $this->role = $role;
+
+        return $this;
+    }
+
+    /**
+     * String representation of object
+     * @link  http://php.net/manual/en/serializable.serialize.php
+     * @return string the string representation of the object or null
+     * @since 5.1.0
+     */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->email,
+            $this->password,
+            $this->plainPassword,
+            $this->role,
+        ));
+    }
+
+    /**
+     * Constructs the object
+     * @link  http://php.net/manual/en/serializable.unserialize.php
+     *
+     * @param string $serialized <p>
+     *                           The string representation of the object.
+     *                           </p>
+     *
+     * @return void
+     * @since 5.1.0
+     */
+    public function unserialize($serialized)
+    {
+        list(
+            $this->id,
+            $this->password,
+            $this->plainPassword,
+            $this->email,
+            $this->role,
+            ) = unserialize($serialized);
+    }
+    /**
+     * @var string
+     */
+    private $username;
+
+
+    /**
+     * Set username
+     *
+     * @param string $username
+     *
+     * @return Customers
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    /**
+     * Get role
+     *
+     * @return string
+     */
+    public function getRole()
+    {
+        return $this->role;
     }
 }

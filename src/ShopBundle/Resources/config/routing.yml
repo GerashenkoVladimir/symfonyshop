@@ -7,3 +7,14 @@ shop_show_product:
     defaults: { _controller: ShopBundle:Products:show }
     requirements:
         id: \d+
+
+shop_registration:
+    path: /registration
+    defaults: { _controller: ShopBundle:Security:registration }
+
+shop_login:
+    path: /login
+    defaults: { _controller: ShopBundle:Security:login }
+
+shop_logout:
+    path: /logout
