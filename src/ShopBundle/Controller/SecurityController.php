@@ -2,7 +2,7 @@
 
 namespace ShopBundle\Controller;
 
-use ShopBundle\Entity\Customers;
+use ShopBundle\Entity\Customer;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -11,7 +11,7 @@ class SecurityController extends Controller
     public function registrationAction(Request $request)
     {
         if (!empty($password = $request->get('password')) && $password == $request->get('retypePassword')) {
-            $customer = new Customers();
+            $customer = new Customer();
             $customer->setUsername($request->get('username'));
             $customer->setEmail($request->get('email'));
             $encoder = $this->get('security.password_encoder');
@@ -34,7 +34,7 @@ class SecurityController extends Controller
         }
 
 
-        $em = $this->getDoctrine()->getRepository('ShopBundle:Categories');
+        $em = $this->getDoctrine()->getRepository('ShopBundle:Category');
         $categories = $em->findAll();
         return $this->render('@Shop/security/registration.html.twig', array(
             'categories' => $categories
@@ -43,12 +43,12 @@ class SecurityController extends Controller
 
     public function loginAction()
     {
-        $authenticationUtils = $this->get('security.authentication_utils');
+//        $authenticationUtils = $this->get('security.authentication_utils');
         
 //        $error = $authenticationUtils->getLastAuthenticationError();
 
         //убрать 
-        $repository = $this->getDoctrine()->getRepository('ShopBundle:Categories');
+        $repository = $this->getDoctrine()->getRepository('ShopBundle:Category');
         $categories = $repository->findAll();
         return $this->render('ShopBundle::main_layout.html.twig', array(
             'categories' => $categories,

@@ -8,17 +8,17 @@ class ProductsController extends Controller
 {
     public function indexAction()
     {
-        $repository = $this->getDoctrine()->getRepository('ShopBundle:Categories');
+        $repository = $this->getDoctrine()->getRepository('ShopBundle:Category');
         $categories = $repository->findAll();
         return $this->render('@Shop/products/index.html.twig',array('categories' => $categories));
     }
 
     public function showAction($id)
     {
-        $category = $this->getDoctrine()->getRepository('ShopBundle:Categories')->find($id);
-        $products = $category->getProducts();
+        $category = $this->getDoctrine()->getRepository('ShopBundle:Category')->find($id);
+        $products = $category->getProduct();
         
-        $repository = $this->getDoctrine()->getRepository('ShopBundle:Categories');
+        $repository = $this->getDoctrine()->getRepository('ShopBundle:Category');
         $categories = $repository->findAll();
         return $this->render('@Shop/products/show.html.twig', array(
             'categories' => $categories,

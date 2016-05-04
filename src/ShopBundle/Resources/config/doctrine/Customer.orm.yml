@@ -1,7 +1,7 @@
-ShopBundle\Entity\Customers:
+ShopBundle\Entity\Customer:
     type: entity
     table: null
-    repositoryClass: ShopBundle\Repository\CustomersRepository
+    repositoryClass: ShopBundle\Repository\CustomerRepository
     id:
         id:
             type: integer
@@ -51,8 +51,8 @@ ShopBundle\Entity\Customers:
             type: string
             length: 45
     manyToMany:
-        products:
-            targetEntity: ShopBundle\Entity\Products
+        product:
+            targetEntity: ShopBundle\Entity\Product
             joinTable:
                 name: shopping_basket
                 joinColumnName:
@@ -67,4 +67,8 @@ ShopBundle\Entity\Customers:
                         options:
                             unsigned: true
                         nullable: false
+    oneToMany:
+        shoppingBasket:
+            targetEntity: ShopBundle\Entity\ShoppingBasket
+            mappedBy: customer
     lifecycleCallbacks: {  }

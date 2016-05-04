@@ -1,4 +1,4 @@
-ShopBundle\Entity\Orders:
+ShopBundle\Entity\Order:
     type: entity
     table: null
     repositoryClass: ShopBundle\Repository\OrdersRepository
@@ -16,27 +16,27 @@ ShopBundle\Entity\Orders:
             length: '10'
             unique: true
     manyToOne:
-        customers:
-            targetEntity: ShopBundle\Entity\Customers
+        customer:
+            targetEntity: ShopBundle\Entity\Customer
             joinColumns:
-                customers_id:
+                customer_id:
                     referencedColumnName: id
                     options:
                         unsigned: true
                     nullable: false
     manyToMany:
-        products:
-            targetEntity: ShopBundle\Entity\Products
+        product:
+            targetEntity: ShopBundle\Entity\Product
             joinTable:
-                name: orders_products
+                name: order_product
                 joinColumns:
-                    orders_id:
+                    order_id:
                         referencedColumnName: id
                         options:
                             unsigned: true
                         nullable: false
                 inverseJoinColumn:
-                    products_id:
+                    product_id:
                         referencedColumnName: id
                         options:
                             unsigned: true

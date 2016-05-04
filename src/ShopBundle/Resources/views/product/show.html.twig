@@ -1,0 +1,41 @@
+{% extends 'ShopBundle::main_layout.html.twig' %}
+
+{% block content %}
+    <div class="container">
+        <h1>{{ category.name }}</h1>
+        {% for product in products %}
+            <div class="thumbnail">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-4">
+                        <img class="img-thumbnail"
+                             src="{{ asset("bundles/shop/images/uploads/products/") ~ product.imageName }}.jpg" alt="">
+                    </div>
+                    <div class="col-xs-12 col-sm-8">
+                        <h3>{{ product.name }}</h3>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <div class="btn-group" role="group">
+                                <a href="{{ path('admin_remove_product', {'id': product.id, '_token': csrf_token(product.id+app.user.id) }) }}"
+                                   class="btn btn-danger"
+                                   title="Удалить"><i class="glyphicon glyphicon-trash"></i></a>
+                                <a href="{{ path('admin_edit_product', {'id': product.id, '_token': csrf_token(product.id+app.user.id) }) }}"
+                                   class="btn btn-warning" title="Редактировать"><i
+                                            class="glyphicon glyphicon-pencil"></i></a>
+                            </div>
+                        {% endif %}
+
+                        <hr>
+                        <p>Цена: {{ product.price }} <a
+                                    href="{{ path('shop_add_product_to_basket', {'id': product.id, '_token': csrf_token(product.id+app.user.id) }) }}"
+                                    class="btn btn-success btn-sm"
+                                    title="Добавить в корзину"><i class="fa fa-cart-plus"></i></a>
+                        </p>
+                        <p>Призводитель: {{ product.producer.name }}</p>
+                        {% if product.description is not empty %}
+                            <p>{{ product.description }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

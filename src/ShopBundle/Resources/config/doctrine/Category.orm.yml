@@ -1,7 +1,7 @@
-ShopBundle\Entity\Categories:
+ShopBundle\Entity\Category:
     type: entity
     table: null
-    repositoryClass: ShopBundle\Repository\CategoriesRepository
+    repositoryClass: ShopBundle\Repository\CategoryRepository
     id:
         id:
             type: integer
@@ -22,8 +22,8 @@ ShopBundle\Entity\Categories:
         name:
             - NotBlank: ~
     oneToMany:
-        products:
-            targetEntity: ShopBundle\Entity\Products
-            mappedBy: categories
+        product:
+            targetEntity: ShopBundle\Entity\Product
+            mappedBy: category
 
     lifecycleCallbacks: {  }

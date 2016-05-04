@@ -1,0 +1,31 @@
+ShopBundle\Entity\ShoppingBasket:
+    type: entity
+    table: null
+    repositoryClass: ShopBundle\Repository\ShoppingBasketRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        quantity:
+            type: smallint
+    manyToOne:
+        customer:
+            targetEntity: ShopBundle\Entity\Customer
+            joinColumns:
+                customer_id:
+                    referencedColumnName: id
+                    options:
+                        unsigned: true
+                    nullable: false
+        product:
+            targetEntity: ShopBundle\Entity\Product
+            joinColumns:
+                product_id:
+                    referencedColumnName: id
+                    options:
+                        usigned: true
+                    nullable: false
+    lifecycleCallbacks: {  }

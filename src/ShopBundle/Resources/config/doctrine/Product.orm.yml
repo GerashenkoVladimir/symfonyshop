@@ -1,7 +1,7 @@
-ShopBundle\Entity\Products:
+ShopBundle\Entity\Product:
     type: entity
     table: null
-    repositoryClass: ShopBundle\Repository\ProductsRepository
+    repositoryClass: ShopBundle\Repository\ProductRepository
     uniqueConstraints:
         unique_name_price:
             columns: [ name, price ]
@@ -25,21 +25,25 @@ ShopBundle\Entity\Products:
             type: string
             length: 128
     manyToOne:
-        categories:
-            targetEntity: ShopBundle\Entity\Categories
-            jounColumns:
-                categories_id:
+        category:
+            targetEntity: ShopBundle\Entity\Category
+            joinColumns:
+                category_id:
                     referencedColumnName: id
                     options:
                         unsigned: true
                     nullable: false
 
-        producers:
-            targetEntity: ShopBundle\Entity\Producers
+        producer:
+            targetEntity: ShopBundle\Entity\Producer
             joinColumns:
-                producers_id:
+                producer_id:
                     referencedColumnName: id
                     options:
                         unsigned: true
                     nullable: false
+    oneToMany:
+        shoppingBasket:
+            targetEntity: ShopBundle\Entity\ShoppingBasket
+            mappedBy: product
     lifecycleCallbacks: {  }

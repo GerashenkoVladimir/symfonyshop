@@ -23,7 +23,7 @@ class Category extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'ShopBundle\Entity\Categories',
+                'data_class' => 'ShopBundle\Entity\Category',
                 )
         );
     }

@@ -1,41 +1,51 @@
 {% extends '@Admin/index.html.twig' %}
 
 {% block admin_panel %}
-    <form action="{{ path('admin_add_product') }}" method="post" enctype="multipart/form-data">
-        <div>
-            <label for="productName">Название товара: </label>
-            <input type="text" name="name" id="productName" placeholder="введите название товара">
+
+    <div class="container">
+        {{ form_start(form, { 'attr': { 'class': 'form-horizontal thumbnail col-xs-5' }}) }}
+        <div class="form-group">
+            {{ form_label(form.name, '', {'label_attr': {'class': 'col-xs-4 control-label'}}) }}
+            <div class="col-xs-8">
+                {{ form_widget(form.name, { 'attr': { 'class': 'form-control' }}) }}
+            </div>
         </div>
-        <div>
-            <label for="productPrice">Цена: </label>
-            <input type="text" id="productPrice" name="price" placeholder="введите цену товара">
+        <div class="form-group">
+            {{ form_label(form.price, '', {'label_attr': {'class': 'col-xs-4 control-label'}}) }}
+            <div class="col-xs-8">
+                {{ form_widget(form.price, { 'attr': { 'class': 'form-control' }}) }}
+            </div>
         </div>
-        <div>
-            <label for="productDescription">Описание продукта: </label>
-            <textarea name="description" id="productDescription" cols="30" rows="10" placeholder="введите описание  товара"></textarea>
+        <div class="form-group">
+            {{ form_label(form.description, '', {'label_attr': {'class': 'col-xs-4 control-label'}}) }}
+            <div class="col-xs-8">
+                {{ form_widget(form.description, { 'attr': { 'class': 'form-control' }}) }}
+            </div>
         </div>
-        <div>
-            <label for="productCategory">Категория товара: </label>
-            <select name="category" id="productCategory">
-                {% for  category in categories %}
-                    <option value="{{ category.id }}">{{ category.name }}</option>
-                {% endfor %}
-            </select>
+        <div class="form-group">
+            {{ form_label(form.category, '', {'label_attr': {'class': 'col-xs-4 control-label'}}) }}
+            <div class="col-xs-8">
+                {{ form_widget(form.category, { 'attr': { 'class': 'form-control' }}) }}
+            </div>
         </div>
-        <div>
-            <label for="productProducer">Производитель: </label>
-            <select name="producer" id="productProducer">
-                {% for producer in producers %}
-                    <option value="{{ producer.id }}">{{ producer.name }}</option>
-                {% endfor %}
-            </select>
+        <div class="form-group">
+            {{ form_label(form.producer, '', {'label_attr': {'class': 'col-xs-4 control-label'}}) }}
+            <div class="col-xs-8">
+                {{ form_widget(form.producer, { 'attr': { 'class': 'form-control' }}) }}
+            </div>
         </div>
-        <div>
-            <label for="productImage">Картинка: </label>
-            <input type="file" id="productImage" name="image">
+        <div class="form-group">
+            {{ form_label(form.image, '', {'label_attr': {'class': 'col-xs-4 control-label'}}) }}
+            <div class="col-xs-8">
+                {{ form_widget(form.image, { 'attr': { 'class': 'form-control' }}) }}
+            </div>
         </div>
-        <div>
-            <input type="submit" value="Сохранить">
+        <div class="form-group">
+            <div class="col-xs-offset-4 col-xs-8">
+                {{ form_widget(form.save, {'attr': { 'class': 'btn btn-success' }}) }}
+            </div>
         </div>
-    </form>
+        {{ form_end(form) }}
+    </div>
+
 {% endblock %}

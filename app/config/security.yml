@@ -16,7 +16,7 @@ security:
                 property: username
         customer_provider:
             entity:
-                class: ShopBundle\Entity\Customers
+                class: ShopBundle\Entity\Customer
                 property: email
 
     encoders:
@@ -24,7 +24,7 @@ security:
             algorithm: bcrypt
         AdminBundle\Entity\Admin:
             algorithm: bcrypt
-        ShopBundle\Entity\Customers:
+        ShopBundle\Entity\Customer:
             algorithm: bcrypt
 
     firewalls:

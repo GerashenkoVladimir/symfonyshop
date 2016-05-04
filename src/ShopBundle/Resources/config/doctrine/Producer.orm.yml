@@ -1,7 +1,7 @@
-ShopBundle\Entity\Producers:
+ShopBundle\Entity\Producer:
     type: entity
     table: null
-    repositoryClass: ShopBundle\Repository\ProducersRepository
+    repositoryClass: ShopBundle\Repository\ProducerRepository
     id:
         id:
             type: integer

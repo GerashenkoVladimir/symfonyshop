@@ -18,3 +18,13 @@ shop_login:
 
 shop_logout:
     path: /logout
+
+shop_add_product_to_basket:
+    path: /addtobasket/{id}
+    defaults: { _controller: ShopBundle:Customer:addToBasket }
+    requirements:
+        id: \d+
+
+shop_customer_profile:
+    path: /profile
+    defaults: { _controller: ShopBundle:Customer:profile }
