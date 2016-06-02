@@ -41,7 +41,7 @@ ShopBundle\Entity\Product:
                     referencedColumnName: id
                     options:
                         unsigned: true
-                    nullable: false
+#                    nullable: false
     oneToMany:
         shoppingBasket:
             targetEntity: ShopBundle\Entity\ShoppingBasket

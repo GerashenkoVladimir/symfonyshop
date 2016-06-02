@@ -50,23 +50,23 @@ ShopBundle\Entity\Customer:
         role:
             type: string
             length: 45
-    manyToMany:
-        product:
-            targetEntity: ShopBundle\Entity\Product
-            joinTable:
-                name: shopping_basket
-                joinColumnName:
-                    customer_id:
-                        referencedColumnName: id
-                        options:
-                            unsigned: true
-                        nullable: false
-                inverseJoinColumnName:
-                    product_id:
-                        referencedColumnName: id
-                        options:
-                            unsigned: true
-                        nullable: false
+#    manyToMany:
+#        product:
+#            targetEntity: ShopBundle\Entity\Product
+#            joinTable:
+#                name: shopping_basket
+#                joinColumnName:
+#                    customer_id:
+#                        referencedColumnName: id
+#                        options:
+#                            unsigned: true
+#                        nullable: false
+#                inverseJoinColumnName:
+#                    product_id:
+#                        referencedColumnName: id
+#                        options:
+#                            unsigned: true
+#                        nullable: false
     oneToMany:
         shoppingBasket:
             targetEntity: ShopBundle\Entity\ShoppingBasket

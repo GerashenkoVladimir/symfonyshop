@@ -550,4 +550,43 @@ class Customer implements UserInterface, \Serializable
     {
         return $this->role;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $shoppingBasket;
+
+
+    /**
+     * Add shoppingBasket
+     *
+     * @param \ShopBundle\Entity\ShoppingBasket $shoppingBasket
+     *
+     * @return Customer
+     */
+    public function addShoppingBasket(\ShopBundle\Entity\ShoppingBasket $shoppingBasket)
+    {
+        $this->shoppingBasket[] = $shoppingBasket;
+
+        return $this;
+    }
+
+    /**
+     * Remove shoppingBasket
+     *
+     * @param \ShopBundle\Entity\ShoppingBasket $shoppingBasket
+     */
+    public function removeShoppingBasket(\ShopBundle\Entity\ShoppingBasket $shoppingBasket)
+    {
+        $this->shoppingBasket->removeElement($shoppingBasket);
+    }
+
+    /**
+     * Get shoppingBasket
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getShoppingBasket()
+    {
+        return $this->shoppingBasket;
+    }
 }

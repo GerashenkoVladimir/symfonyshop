@@ -4,19 +4,26 @@
     <div class="container">
         <h1>{{ category.name }}</h1>
         {% for product in products %}
-            <div class="thumbnail">
+            <div class="thumbnail" id="product_{{ product.id }}">
                 <div class="row">
                     <div class="col-xs-12 col-sm-4">
                         <img class="img-thumbnail"
                              src="{{ asset("bundles/shop/images/uploads/products/") ~ product.imageName }}.jpg" alt="">
                     </div>
                     <div class="col-xs-12 col-sm-8">
-                        <h3>{{ product.name }}</h3>
+                        <h3 id="name_{{ product.id }}">{{ product.name }}</h3>
                         {% if is_granted('ROLE_ADMIN') %}
                             <div class="btn-group" role="group">
-                                <a href="{{ path('admin_remove_product', {'id': product.id, '_token': csrf_token(product.id+app.user.id) }) }}"
-                                   class="btn btn-danger"
-                                   title="Удалить"><i class="glyphicon glyphicon-trash"></i></a>
+                                <button class="btn btn-danger" title="Удалить" type="button" data-toggle="modal"
+                                        data-target="#removeProductModal" data-productid="{{ product.id }}">
+                                    <i class="glyphicon glyphicon-trash"></i>
+                                </button>
+                                {#<button class="btn btn-danger" title="Удалить" productId="{{ product.id }}"
+                                            url="{{ path('admin_remove_product') }}"
+                                            _token="{{ csrf_token(product.id+app.user.id) }}">
+                                    <i class="glyphicon glyphicon-trash"></i>
+                                </button>#}
+
                                 <a href="{{ path('admin_edit_product', {'id': product.id, '_token': csrf_token(product.id+app.user.id) }) }}"
                                    class="btn btn-warning" title="Редактировать"><i
                                             class="glyphicon glyphicon-pencil"></i></a>
@@ -24,12 +31,15 @@
                         {% endif %}
 
                         <hr>
-                        <p>Цена: {{ product.price }} <a
-                                    href="{{ path('shop_add_product_to_basket', {'id': product.id, '_token': csrf_token(product.id+app.user.id) }) }}"
-                                    class="btn btn-success btn-sm"
-                                    title="Добавить в корзину"><i class="fa fa-cart-plus"></i></a>
+                        <p id="price_{{ product.id }}">Цена: {{ product.price }}
+                            {% if is_granted('ROLE_USER') %}
+                                <a href="{{ path('shop_add_product_to_basket', {'id': product.id, '_token': csrf_token(product.id+app.user.id) }) }}"
+                                   class="btn btn-success btn-sm"
+                                   title="Добавить в корзину"><i class="fa fa-cart-plus"></i></a>
+                            {% endif %}
+
                         </p>
-                        <p>Призводитель: {{ product.producer.name }}</p>
+                        <p id="producer_{{ product.id }}">Призводитель: {{ product.producer.name }}</p>
                         {% if product.description is not empty %}
                             <p>{{ product.description }}</p>
                         {% endif %}
@@ -38,4 +48,38 @@
             </div>
         {% endfor %}
     </div>
+    {#<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"
+            data-whatever="someText">Open modal for @mdo
+    </button>#}
+    <div class="modal fade" id="removeProductModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="exampleModalLabel">Вы действительно хотите удалить этот товар?</h4>
+                </div>
+                <div class="modal-body">
+                    <p id="modalName"></p>
+                    <p id="modalPrice"></p>
+                    <p id="modalProducer"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal">Отмена</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="submitDelete"
+                            data-productid="0" data-url="{{ path('admin_remove_product') }}"
+                            data-token="{{ csrf_token(app.user.username) }}">
+                        Да, уверен.
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {% if is_granted('ROLE_ADMIN') %}
+        <script src="{{ asset('bundles/admin/js/admin.js') }}"></script>
+    {% endif %}
 {% endblock %}

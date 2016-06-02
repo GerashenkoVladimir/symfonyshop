@@ -22,10 +22,8 @@ admin_add_producer:
     defaults: { _controller: AdminBundle:Admin:addProducer}
 
 admin_remove_product:
-    path: /admin/removeproduct/{id}
+    path: /admin/removeproduct
     defaults: { _controller: AdminBundle:Admin:removeProduct }
-    requirements:
-        id: \d+
 
 admin_edit_product:
     path: /admin/editproduct/{id}

@@ -199,4 +199,50 @@ class Product
     {
         return $this->imageName;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $shoppingBasket;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->shoppingBasket = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add shoppingBasket
+     *
+     * @param \ShopBundle\Entity\ShoppingBasket $shoppingBasket
+     *
+     * @return Product
+     */
+    public function addShoppingBasket(\ShopBundle\Entity\ShoppingBasket $shoppingBasket)
+    {
+        $this->shoppingBasket[] = $shoppingBasket;
+
+        return $this;
+    }
+
+    /**
+     * Remove shoppingBasket
+     *
+     * @param \ShopBundle\Entity\ShoppingBasket $shoppingBasket
+     */
+    public function removeShoppingBasket(\ShopBundle\Entity\ShoppingBasket $shoppingBasket)
+    {
+        $this->shoppingBasket->removeElement($shoppingBasket);
+    }
+
+    /**
+     * Get shoppingBasket
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getShoppingBasket()
+    {
+        return $this->shoppingBasket;
+    }
 }

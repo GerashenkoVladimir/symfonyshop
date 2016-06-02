@@ -9,21 +9,22 @@ use ShopBundle\Entity\Product as ProductEntity;
 use ShopBundle\Entity\Producer;
 use ShopBundle\Inheritance\ControllerHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-
+use Symfony\Component\HttpFoundation\Response;
 
 
 class AdminController extends Controller
 {
     use ControllerHelper;
-    
+
     public function indexAction()
     {
 
         //убрать 
         $repository = $this->getDoctrine()->getRepository('ShopBundle:Category');
         $categories = $repository->findAll();
-        return $this->render('AdminBundle::index.html.twig',array( 'categories' => $categories));
+        return $this->render('AdminBundle::index.html.twig', array('categories' => $categories));
     }
 
     public function addCategoryAction(Request $request)
@@ -49,12 +50,13 @@ class AdminController extends Controller
         //убрать
         $repository = $this->getDoctrine()->getRepository('ShopBundle:Category');
         $categories = $repository->findAll();
-        return $this->render('AdminBundle:actions:addCategory.html.twig', array('form' => $form->createView(), 'categories' => $categories));
+        return $this->render('AdminBundle:actions:addCategory.html.twig',
+            array('form' => $form->createView(), 'categories' => $categories));
     }
 
     public function addProducerAction(Request $request)
     {
-        if ($request->isMethod('post')){
+        if ($request->isMethod('post')) {
             $producer = new Producer();
             $producer->setName($request->get('name'));
             $em = $this->getDoctrine()->getManager();
@@ -68,7 +70,7 @@ class AdminController extends Controller
 
     public function addProductAction(Request $request)
     {
-        
+
         $product = new ProductEntity();
         $form = $this->createForm(ProductForm::class, $product, array(
             'action' => $this->generateUrl('admin_add_product'),
@@ -89,16 +91,17 @@ class AdminController extends Controller
         $categories = $repository->findAll();
         return $this->render('AdminBundle:actions:addProduct.html.twig', array(
             'categories' => $categories,
-            'form' => $form->createView(),
+            'form'       => $form->createView(),
         ));
     }
 
-    public function removeProductAction($id, Request $request)
+    public function removeProductAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        $product = $em->getRepository('ShopBundle:Product')->find($id);
-        if ($this->isCsrfTokenValid($id + $this->getUser()->getId(), $request->get('_token'))) {
 
+        $id = $request->get("productId");
+        if ($this->isCsrfTokenValid($this->getUser()->getUsername(), $request->get('_token'))) {
+            $em = $this->getDoctrine()->getManager();
+            $product = $em->getRepository('ShopBundle:Product')->find($id);
             if (!$product) {
                 throw $this->createNotFoundException(
                     "Продукта с идентификационным номером $id не существует!"
@@ -108,8 +111,10 @@ class AdminController extends Controller
             $em->remove($product);
             $em->flush();
 
+            return new Response(true.'');
         }
-        return $this->redirect($request->headers->get('referer'));
+        
+        return new Response(false.'');
     }
 
     public function editProductAction($id, Request $request)
@@ -123,7 +128,8 @@ class AdminController extends Controller
             $oldImageName = $product->getImageName();
 
             $form = $this->createForm(ProductForm::class, $product, array(
-                'action' => $this->generateUrl('admin_edit_product', array('id' => $id))."?_token=$token"));
+                'action' => $this->generateUrl('admin_edit_product', array('id' => $id)) . "?_token=$token"
+            ));
             $form->handleRequest($request);
 
             if ($request->isMethod('post')) {
@@ -144,7 +150,7 @@ class AdminController extends Controller
             $categories = $repository->findAll();
             return $this->render('@Admin/actions/addProduct.html.twig', array(
                 'categories' => $categories,
-                'form' => $form->createView(),
+                'form'       => $form->createView(),
             ));
         }
 
@@ -164,8 +170,9 @@ class AdminController extends Controller
         $categories = $repository->findAll();
         return $this->render('AdminBundle::login.html.twig', array(
             'last_username' => $lastUserName,
-            'error' => $error,
-            'categories' => $categories));
+            'error'         => $error,
+            'categories'    => $categories
+        ));
 
     }
 
@@ -179,8 +186,8 @@ class AdminController extends Controller
 
     private function changeImage($newImagePath, $oldName, $newName, $destinationDirectory)
     {
-        if (unlink($this->getImagePath($destinationDirectory).$oldName.'.jpg')) {
-            $this->normalizeImage($newImagePath,  $newName, $destinationDirectory);
+        if (unlink($this->getImagePath($destinationDirectory) . $oldName . '.jpg')) {
+            $this->normalizeImage($newImagePath, $newName, $destinationDirectory);
         }
     }
 }

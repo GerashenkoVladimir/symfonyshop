@@ -29,6 +29,6 @@ class CustomerController extends Controller
             $em->flush();
         }
         
-        return $this->redirect('referer');
+        return $this->redirect($request->headers->get('referer'));
     }
 }
