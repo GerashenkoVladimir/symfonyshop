@@ -6,34 +6,29 @@ $('#removeProductModal').on('show.bs.modal', function (event) {
     $("#modalPrice", modal).html($("#price_"+productId).html());
     $("#modalProducer", modal).html($("#producer_"+productId).html());
     $("#submitDelete").attr("data-productid", productId);
-    console.log($("#submitDelete").attr("data-productid"));
 });
 
-$(function () {
-    var buttons = $("#submitDelete");
-    buttons.bind("click", function (event) {
-        var button;
-        if (!(event.target instanceof HTMLButtonElement)) {
-            button = $(event.target).parent();
-        } else {
-            button = event.target;
-        }
+$(handleRemoveProductAction);
 
-        var productId = $(button).data("productid");
-        var url = $(button).data("url");
-        var _token = $(button).data("token");
-        $.ajax({
-            method: "POST",
-            url: url,
-            cache: false,
-            data: { productId: productId, _token: _token },
-            success: function (isDeleted) {
-                if (!!isDeleted) {
-                    $("#product_"+productId).detach();
-                }
+
+
+function handleRemoveProductAction() {
+    var button = $("#submitDelete");
+
+    $(button).bind("click", function (event) {
+
+        var target = event.target;
+
+        runSimpleAjax($.routes.removeURL,{
+            productId: $(target).data("productid"),
+            _token: $(target).data("token")
+        }, function (json) {
+            if (json) {
+                var obj = $.parseJSON(json);
+
+                $("#product_"+obj.productId).detach();
             }
         });
+
     })
-
-});
-
+}

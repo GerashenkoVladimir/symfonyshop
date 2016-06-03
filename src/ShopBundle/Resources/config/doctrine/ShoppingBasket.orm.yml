@@ -2,15 +2,22 @@ ShopBundle\Entity\ShoppingBasket:
     type: entity
     table: null
     repositoryClass: ShopBundle\Repository\ShoppingBasketRepository
+    uniqueConstraints:
+        unique_customer_product:
+            columns: [ customer_id, product_id ]
     id:
         id:
             type: integer
             id: true
+            options:
+                unsigned: true
             generator:
                 strategy: AUTO
     fields:
         quantity:
             type: smallint
+            options:
+                unsugned: true
     manyToOne:
         customer:
             targetEntity: ShopBundle\Entity\Customer

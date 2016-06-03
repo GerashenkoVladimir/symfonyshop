@@ -111,7 +111,7 @@ class AdminController extends Controller
             $em->remove($product);
             $em->flush();
 
-            return new Response(true.'');
+            return new JsonResponse("{\"productId\": {$id}}");
         }
         
         return new Response(false.'');

@@ -17,10 +17,6 @@ class ProductsController extends Controller
     {
         $category = $this->getDoctrine()->getRepository('ShopBundle:Category')->find($id);
         $products = $category->getProduct();
-        /*foreach ($products as $product) {
-            dump($product);
-        }
-        exit;*/
         $repository = $this->getDoctrine()->getRepository('ShopBundle:Category');
         $categories = $repository->findAll();
         return $this->render('@Shop/product/show.html.twig', array(

@@ -2,8 +2,11 @@
 
 namespace ShopBundle\Controller;
 
+use ShopBundle\Entity\ShoppingBasket;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class CustomerController extends Controller
 {
@@ -17,18 +20,35 @@ class CustomerController extends Controller
         
         
     }
-    public function addToBasketAction($id, Request $request)
+    public function addToBasketAction(Request $request)
     {
-        if ($this->isCsrfTokenValid($tokenID = $id + $this->getUser()->getId(), $request->get('_token'))) {
+        $productId = $request->get("productId");
+        if ($this->isCsrfTokenValid($tokenID = $productId + $this->getUser()->getId(), $request->get('_token'))) {
             $doctrine = $this->getDoctrine();
-            $product = $doctrine->getRepository('ShopBundle:Product')->find($id);
-            $customer = $this->getUser();
-            $customer->addProduct($product);
+            $query = $doctrine->getRepository("ShopBundle:ShoppingBasket")->createQueryBuilder('b')
+                ->where("b.product = :product")
+                ->andWhere("b.customer = :customer")
+                ->setParameter("product", $productId)
+                ->setParameter("customer", $this->getUser()->getId())
+                ->getQuery();
+            $shopBaskets = $query->getResult();
             $em = $doctrine->getManager();
-            $em->persist($customer);
+            if (count($shopBaskets) > 0 ) {
+                $shopBaskets[0]->setQuantity($shopBaskets[0]->getQuantity() + $request->get("productQuantity"));
+//                $em->persist($shopBaskets[0]);
+            } else {
+                $shopBasket = new ShoppingBasket();
+                $shopBasket->setProduct($doctrine->getRepository('ShopBundle:Product')->find($productId));
+                $shopBasket->setCustomer($this->getUser());
+                $shopBasket->setQuantity($request->get("productQuantity"));
+                $em->persist($shopBasket);
+            }
+            
             $em->flush();
+
+            return new JsonResponse("{\"productId\": {$productId}}");
         }
-        
-        return $this->redirect($request->headers->get('referer'));
+
+        return new Response(false."");
     }
 }
