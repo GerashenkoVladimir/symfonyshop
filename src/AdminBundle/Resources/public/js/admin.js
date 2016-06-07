@@ -22,13 +22,7 @@ function handleRemoveProductAction() {
         runSimpleAjax($.routes.removeURL,{
             productId: $(target).data("productid"),
             _token: $(target).data("token")
-        }, function (json) {
-            if (json) {
-                var obj = $.parseJSON(json);
-
-                $("#product_"+obj.productId).detach();
-            }
-        });
+        }, removeProductHtml);
 
     })
 }

@@ -26,3 +26,7 @@ shop_add_product_to_basket:
 shop_customer_profile:
     path: /profile
     defaults: { _controller: ShopBundle:Customer:profile }
+
+shop_remove_from_basket:
+    path: /removefrombasket
+    defaults: { _controller: ShopBundle:Customer:removeFromBasket }

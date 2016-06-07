@@ -84,6 +84,7 @@
     {% if is_granted('ROLE_ADMIN') %}
         <script src="{{ asset('bundles/admin/js/admin.js') }}"></script>
     {% elseif is_granted('ROLE_USER') %}
+        <script src="{{ asset('bundles/shop/js/helpers/customerHelper.js') }}"></script>
         <script src="{{ asset('bundles/shop/js/customer.js') }}"></script>
     {% endif %}
 {% endblock %}

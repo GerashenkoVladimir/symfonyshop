@@ -1,6 +1,1 @@
-<script>
-   var str = "abc", int = -7;
-    console.log(+str);
-    console.log(+int);
-
-</script>
+<div style="background-color: blue; width: 100px; height: 100px; border-radius: 50px"></div>

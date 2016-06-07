@@ -17,7 +17,7 @@ ShopBundle\Entity\ShoppingBasket:
         quantity:
             type: smallint
             options:
-                unsugned: true
+                unsigned: true
     manyToOne:
         customer:
             targetEntity: ShopBundle\Entity\Customer
@@ -33,6 +33,6 @@ ShopBundle\Entity\ShoppingBasket:
                 product_id:
                     referencedColumnName: id
                     options:
-                        usigned: true
+                        unsigned: true
                     nullable: false
     lifecycleCallbacks: {  }

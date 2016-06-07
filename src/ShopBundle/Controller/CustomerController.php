@@ -12,16 +12,25 @@ class CustomerController extends Controller
 {
     public function profileAction()
     {
-        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
             return $this->redirectToRoute('shop_homepage');
         }
+        $doctrine = $this->getDoctrine();
+        $customer = $this->getUser();
+        $shoppingBasket = $doctrine->getRepository('ShopBundle:ShoppingBasket')->findBy(array('customer' => $customer));
+        $categories = $doctrine->getRepository('ShopBundle:Category')->findAll();
         
-        $customer =$this->getUser();
-        
+        return $this->render("@Shop/customer/profile.twig", array(
+            'categories' => $categories,
+            'basket' => $shoppingBasket
+        ));
         
     }
     public function addToBasketAction(Request $request)
     {
+        if (!$request->isXmlHttpRequest()) {
+            return $this->redirect($this->generateUrl('shop_homepage'));
+        }
         $productId = $request->get("productId");
         if ($this->isCsrfTokenValid($tokenID = $productId + $this->getUser()->getId(), $request->get('_token'))) {
             $doctrine = $this->getDoctrine();
@@ -35,7 +44,6 @@ class CustomerController extends Controller
             $em = $doctrine->getManager();
             if (count($shopBaskets) > 0 ) {
                 $shopBaskets[0]->setQuantity($shopBaskets[0]->getQuantity() + $request->get("productQuantity"));
-//                $em->persist($shopBaskets[0]);
             } else {
                 $shopBasket = new ShoppingBasket();
                 $shopBasket->setProduct($doctrine->getRepository('ShopBundle:Product')->find($productId));
@@ -50,5 +58,25 @@ class CustomerController extends Controller
         }
 
         return new Response(false."");
+    }
+
+    public function removeFromBasketAction(Request $request)
+    {
+        
+        if (!$request->isXmlHttpRequest() && !$this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
+            return $this->redirect($this->generateUrl('shop_homepage'));
+        }
+        $productId = $request->get('productId');
+        if ($this->isCsrfTokenValid($tokenID = $productId + $this->getUser()->getId(), $request->get('_token'))) {
+            $em = $this->getDoctrine()->getManager();
+            $product = $em->getRepository("ShopBundle:ShoppingBasket")->find($productId);
+            $em->remove($product);
+            $em->flush();
+
+            return new Response(json_encode(array('productId' => $productId)));
+        }
+
+        return new Response(false."");
+
     }
 }
