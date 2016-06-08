@@ -1,1 +1,1 @@
-<div style="background-color: blue; width: 100px; height: 100px; border-radius: 50px"></div>
+<input type="date">

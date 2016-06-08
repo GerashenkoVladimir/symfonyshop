@@ -28,5 +28,13 @@ shop_customer_profile:
     defaults: { _controller: ShopBundle:Customer:profile }
 
 shop_remove_from_basket:
-    path: /removefrombasket
+    path: /profile/removefrombasket
     defaults: { _controller: ShopBundle:Customer:removeFromBasket }
+
+shop_save_changed_quantity_basket:
+    path: /profile/savequantity
+    defaults: { _controller: ShopBundle:Customer:saveChangedQuantity }
+
+shop_submit_order_basket:
+    path: /profile/submitorder
+    defaults: { _controller: ShopBundle:Customer:submitOrder }

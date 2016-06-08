@@ -2,6 +2,7 @@
 
 namespace ShopBundle\Controller;
 
+use ShopBundle\Entity\Order;
 use ShopBundle\Entity\ShoppingBasket;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -19,13 +20,14 @@ class CustomerController extends Controller
         $customer = $this->getUser();
         $shoppingBasket = $doctrine->getRepository('ShopBundle:ShoppingBasket')->findBy(array('customer' => $customer));
         $categories = $doctrine->getRepository('ShopBundle:Category')->findAll();
-        
-        return $this->render("@Shop/customer/profile.twig", array(
+
+        return $this->render("@Shop/customer/profile.html.twig", array(
             'categories' => $categories,
-            'basket' => $shoppingBasket
+            'basket'     => $shoppingBasket
         ));
-        
+
     }
+
     public function addToBasketAction(Request $request)
     {
         if (!$request->isXmlHttpRequest()) {
@@ -42,7 +44,7 @@ class CustomerController extends Controller
                 ->getQuery();
             $shopBaskets = $query->getResult();
             $em = $doctrine->getManager();
-            if (count($shopBaskets) > 0 ) {
+            if (count($shopBaskets) > 0) {
                 $shopBaskets[0]->setQuantity($shopBaskets[0]->getQuantity() + $request->get("productQuantity"));
             } else {
                 $shopBasket = new ShoppingBasket();
@@ -51,18 +53,18 @@ class CustomerController extends Controller
                 $shopBasket->setQuantity($request->get("productQuantity"));
                 $em->persist($shopBasket);
             }
-            
+
             $em->flush();
 
             return new JsonResponse("{\"productId\": {$productId}}");
         }
 
-        return new Response(false."");
+        return new Response(false . "");
     }
 
     public function removeFromBasketAction(Request $request)
     {
-        
+
         if (!$request->isXmlHttpRequest() && !$this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
             return $this->redirect($this->generateUrl('shop_homepage'));
         }
@@ -76,7 +78,64 @@ class CustomerController extends Controller
             return new Response(json_encode(array('productId' => $productId)));
         }
 
-        return new Response(false."");
+        return new Response(false . "");
 
+    }
+
+
+    /**
+     * Changed quantity saving on shopping basket page
+     *
+     * @access public
+     *
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     */
+    public function saveChangedQuantityAction(Request $request)
+    {
+        if (!$request->isXmlHttpRequest() && !$this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
+            return $this->redirect($this->generateUrl('shop_homepage'));
+        }
+        $productId = $request->get('productId');
+        if ($this->isCsrfTokenValid($tokenID = $productId + $this->getUser()->getId(), $request->get('_token'))) {
+            $em = $this->getDoctrine()->getManager();
+            $product = $em->getRepository("ShopBundle:ShoppingBasket")->find($productId);
+            $product->setQuantity($request->get('productQuantity'));
+            $em->flush();
+
+            return new Response(true . '');
+        }
+        return new Response(false . '');
+    }
+
+    /**
+     * Prepare modal window of order submission
+     * 
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     */
+    public function submitOrderAction(Request $request)
+    {
+        if (!$request->isXmlHttpRequest() && !$this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
+            return $this->redirect($this->generateUrl('shop_homepage'));
+        }
+
+        if ($this->isCsrfTokenValid($this->getUser()->getUsername(), $request->get('token'))) {
+
+            $basket = $this->getDoctrine()->getRepository('ShopBundle:ShoppingBasket')->findBy(array(
+                    'customer' => $this->getUser()
+                )
+            );
+
+            if ($request->get('isClicked') == 'saveOrder') {
+                $order = new Order();
+            }
+
+            return $this->render('@Shop/customer/submitOrderModal.html.twig', array('basket' => $basket));
+        }
+
+        return new Response(false . '');
     }
 }

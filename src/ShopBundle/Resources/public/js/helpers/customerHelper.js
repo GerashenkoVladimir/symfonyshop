@@ -1,4 +1,7 @@
-
+/**
+ * Handle changing of quantity on "products" page
+ * @return void
+ */
 function handleChangeQuantity() {
     $("input[type='number']").bind("input", function (event) {
         var input = event.target;
@@ -18,17 +21,13 @@ function handleChangeQuantity() {
 
 function handleAddToBasketAction() {
     $('.addToBasket').bind("click", function (event) {
-        var target;
-        if (!(event.target instanceof HTMLButtonElement)) {
-            target = $(event.target).parent();
-        } else {
-            target = event.target;
-        }
-        var productQuantity = $("input[type]",$(target).parent()).val();
+        var target = validateClickedButton(event.target);
+
+        var productQuantity = $("input[type]",target.parent()).val();
         if (numIsValid(productQuantity)) {
             runSimpleAjax($.routes.addToBasketURL,{
-                    productId: $(target).data("productid"),
-                    _token: $(target).data("token"),
+                    productId: target.data("productid"),
+                    _token: target.data("token"),
                     productQuantity: productQuantity
                 }, function (json) {
                     if (json) {
@@ -85,9 +84,8 @@ function handleChangeQuantityBasket() {
         var productQuantity = input.val();
         var productPrice = $('#productPrice_'+ input.data('productid')).text();
         
-        if (numIsValid(productQuantity && !isNaN(productPrice))) {
+        if (numIsValid(productQuantity ) && !isNaN(productPrice)) {
             var saveQButton = $('#saveQuantity_' + input.data('productid'));
-            alert(input.data('saved-quantity') !== productQuantity);
             if (input.data('saved-quantity') != productQuantity) {
                 saveQButton.removeClass('disabled');
             } else {
@@ -100,6 +98,78 @@ function handleChangeQuantityBasket() {
     });
 }
 
+/**
+ * Changed quantity saving on shopping basket page
+ * @return void
+ */
+function handleChangedQuantitySavingAction() {
+    $(".saveQuantity").bind("click", function (event) {
+        var savingButton = validateClickedButton(event.target);
+        var productId = savingButton.data('productid');
+        if (!savingButton.hasClass('disabled')) {
+            var productQuantity = $("#productQuantity_" + productId).val();
+            if (numIsValid(productQuantity)) {
+                runSimpleAjax($.routes.saveQuantityURL,{
+                    productId: savingButton.data("productid"),
+                    _token: savingButton.data("token"),
+                    productQuantity: productQuantity
+                },function (isSaved) {
+                    if (isSaved) {
+                        savingButton.addClass("disabled");
+                        $("#productQuantity_" + productId).data('saved-quantity', productQuantity);
+
+                    }
+                });
+            }
+        }
+    });
+}
+/**
+ * Prepare modal window of order submission
+ * @return void
+ */
+function handlePrepareOrderAction() {
+    $('#prepareOrder').bind('click', function (event) {
+        var button = $(event.target);
+        runSimpleAjax($.routes.submitOrderURL,{
+            token: button.data('token')
+        }, function (html) {
+            if (html) {
+                $("#submitOrderModalBody").html(html);
+            }
+        });
+    });
+}
+
+/**
+ * Save order
+ * @return void
+ */
+function handleSaveOrderAction() {
+    $("#saveOrder").bind("click", function (event) {
+        var button = $(event.target);
+        runSimpleAjax($.routes.submitOrderURL, {
+            token: button.data('data'),
+            isClicked: 'saveOrder'
+        });
+    });
+}
+
+/**
+ * Check and return clicked button wrapped in jQuery object
+ * @param target
+ * @returns {*}
+ */
+
+function validateClickedButton(target) {
+    var button;
+    if (!(target instanceof HTMLButtonElement)) {
+        button = $(target).parent();
+    } else {
+        button = $(target);
+    }
+    return button;
+}
 
 
 function numIsValid(num) {

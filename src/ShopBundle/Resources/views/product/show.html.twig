@@ -47,30 +47,33 @@
             </div>
         {% endfor %}
     </div>
-    <div class="modal fade" id="removeProductModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h4 class="modal-title" id="exampleModalLabel">Вы действительно хотите удалить этот товар?</h4>
-                </div>
-                <div class="modal-body">
-                    <p id="modalName"></p>
-                    <p id="modalPrice"></p>
-                    <p id="modalProducer"></p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-success" data-dismiss="modal">Отмена</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="submitDelete"
-                            data-productid="0" data-token="{{ csrf_token(app.user.username) }}">
-                        Да, уверен.
-                    </button>
+    {% if is_granted('ROLE_ADMIN') %}
+        <div class="modal fade" id="removeProductModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title">Вы действительно хотите удалить этот товар?</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p id="modalName"></p>
+                        <p id="modalPrice"></p>
+                        <p id="modalProducer"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-dismiss="modal">Отмена</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" id="submitDelete"
+                                data-productid="0" data-token="{{ csrf_token(app.user.username) }}">
+                            Да, уверен.
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    {% endif %}
+
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}

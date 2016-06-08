@@ -27,11 +27,15 @@ class Order
      */
     private $product;
 
+
     /**
-     * Constructor
+     * Order constructor.
+     *
+     * @param ShoppingBasket $basket
      */
-    public function __construct()
+    public function __construct(ShoppingBasket $basket)
     {
+        $this->
         $this->product = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
