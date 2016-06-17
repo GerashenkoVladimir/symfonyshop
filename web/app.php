@@ -19,6 +19,7 @@ $apcLoader->register(true);
 */
 
 $kernel = new AppKernel('prod', false);
+\AdminBundle\Service\GlobalHelper::setKernel($kernel);
 $kernel->loadClassCache();
 //$kernel = new AppCache($kernel);
 

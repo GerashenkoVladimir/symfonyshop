@@ -1,0 +1,98 @@
+{% extends '@Shop/main_layout.html.twig' %}
+
+{% block content %}
+    <div class="container">
+        <form action="{{ path('shop_registration') }}" method="post" class="form-horizontal thumbnail col-xs-5">
+            <h4 class="text-center">Личные данные <i class="glyphicon glyphicon-user"></i></h4>
+            <div class="form-group">
+                <label for="forUsername" class="col-xs-4 control-label">Логин: </label>
+                <div class="col-xs-8">
+                    <input type="text" id="forUsername" name="username" class="form-control" placeholder="Логин">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="forEmail" class="col-xs-4 control-label">Электронная почта: </label>
+                <div class="col-xs-8">
+                    <input type="email" id="forEmail" name="email" class="form-control" placeholder="Email">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="forPassword" class="col-xs-4 control-label">Пароль:</label>
+                <div class="col-xs-8">
+                    <input type="password" name="password" class="form-control" id="forPassword" placeholder="Пароль">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="forRetypePassword" class="col-xs-4 control-label">Повтор пароля:</label>
+                <div class="col-xs-8">
+                    <input type="password" name="retypePassword" class="form-control" id="forRetypePassword" placeholder="Повторите ввод пароля">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="forFirstName" class="col-xs-4 control-label">Имя:</label>
+                <div class="col-xs-8">
+                    <input type="text" name="firstName" class="form-control" id="forFirstName" placeholder="Имя">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="forSecondName" class="col-xs-4 control-label">Фамилия:</label>
+                <div class="col-xs-8">
+                    <input type="text" name="secondName" class="form-control" id="forSecondName" placeholder="Фамилия">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="forAge" class="col-xs-4 control-label">Возраст:</label>
+                <div class="col-xs-8">
+                    <input type="text" name="age" class="form-control" id="forAge" placeholder="Возраст">
+                </div>
+            </div>
+
+            <hr>
+
+            <h4 class="text-center">Адрес проживания <i class="glyphicon glyphicon-home"></i></h4>
+            <div class="form-group">
+                <label for="forCountry" class="col-xs-4 control-label">Страна:</label>
+                <div class="col-xs-8">
+                    <input type="text" name="country" class="form-control" id="forCountry" placeholder="Страна">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="forRegion" class="col-xs-4 control-label">Область:</label>
+                <div class="col-xs-8">
+                    <input type="text" name="region" class="form-control" id="forRegion" placeholder="Область">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="forCity" class="col-xs-4 control-label">Город:</label>
+                <div class="col-xs-8">
+                    <input type="text" name="city" class="form-control" id="forCity" placeholder="Город">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="forStreet" class="col-xs-4 control-label">Улица:</label>
+                <div class="col-xs-8">
+                    <input type="text" name="street" class="form-control" id="forStreet" placeholder="Улица">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="forHouse" class="col-xs-4 control-label">Номер дома:</label>
+                <div class="col-xs-8">
+                    <input type="text" name="house" class="form-control" id="forHouse" placeholder="Номер дома">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="forFlat" class="col-xs-4 control-label">Номер квартиры:</label>
+                <div class="col-xs-8">
+                    <input type="text" name="flat" class="form-control" id="forFlat" placeholder="Номер квартиры (не обязательно)">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-offset-4 col-xs-8">
+                    <button class="btn btn-success" type="submit">
+                        Сохранить <i class="fa fa-user-plus"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

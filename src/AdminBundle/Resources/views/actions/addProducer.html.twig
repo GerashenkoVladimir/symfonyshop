@@ -1,0 +1,13 @@
+{% extends '@Admin/index.html.twig' %}
+
+{% block admin_panel %}
+    <form action="{{ path('admin_add_producer') }}" method="post">
+        <div>
+            <label for="producerName">Производитель: </label>
+            <input type="text" name="name" id="producerName" placeholder="введите данные производителя">
+        </div>
+        <div>
+            <input type="submit" value="Сохранить">
+        </div>
+    </form>
+{% endblock %}

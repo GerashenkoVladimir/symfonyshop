@@ -1,0 +1,18 @@
+ShopBundle\Entity\Producer:
+    type: entity
+    table: null
+    repositoryClass: ShopBundle\Repository\ProducerRepository
+    id:
+        id:
+            type: integer
+            id: true
+            options:
+                unsigned: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: '128'
+            unique: true
+    lifecycleCallbacks: {  }

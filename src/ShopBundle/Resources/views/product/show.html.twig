@@ -1,0 +1,93 @@
+{% extends 'ShopBundle::main_layout.html.twig' %}
+
+{% block content %}
+    <div class="container">
+        <h1>{{ category.name }}</h1>
+        {% for product in products %}
+            <div class="thumbnail" id="product_{{ product.id }}">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-4">
+                        <img class="img-thumbnail"
+                             src="{{ asset("bundles/shop/images/uploads/products/") ~ product.imageName }}.jpg" alt="">
+                    </div>
+                    <div class="col-xs-12 col-sm-8">
+                        <h3 id="name_{{ product.id }}">{{ product.name }}</h3>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <div class="btn-group" role="group">
+                                <button class="btn btn-danger" title="Удалить" type="button" data-toggle="modal"
+                                        data-target="#removeProductModal" data-productid="{{ product.id }}">
+                                    <i class="glyphicon glyphicon-trash"></i>
+                                </button>
+                                <a href="{{ path('admin_edit_product', {'id': product.id, '_token': csrf_token(product.id+app.user.id) }) }}"
+                                   class="btn btn-warning" title="Редактировать"><i
+                                            class="glyphicon glyphicon-pencil"></i></a>
+                            </div>
+                        {% endif %}
+
+                        <hr>
+                        <p id="price_{{ product.id }}">Цена: {{ product.price }}
+                            {% if is_granted('ROLE_USER') %}
+                                <button type="button" class="addToBasket btn btn-success btn-sm" title="Добавить в корзину"
+                                    data-token="{{ csrf_token(product.id+app.user.id) }}"
+                                    data-productid="{{ product.id }}">
+                                    <i class="fa fa-cart-plus"></i>
+                                </button>
+                                <input type="number" min="1" max="100" value="1"
+                                        data-productid="{{ product.id }}">
+                                <span id='basketMessage_{{ product.id }}' class='alert alert-success' style="display: none"></span>
+                            {% endif %}
+
+                        </p>
+                        <p id="producer_{{ product.id }}">Призводитель: {{ product.producer.name }}</p>
+                        {% if product.description is not empty %}
+                            <p>{{ product.description }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    {% if is_granted('ROLE_ADMIN') %}
+        <div class="modal fade" id="removeProductModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title">Вы действительно хотите удалить этот товар?</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p id="modalName"></p>
+                        <p id="modalPrice"></p>
+                        <p id="modalProducer"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-dismiss="modal">Отмена</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" id="submitDelete"
+                                data-productid="0" data-token="{{ csrf_token(app.user.username) }}">
+                            Да, уверен.
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $.routes = {
+            removeURL: "{{ path("admin_remove_product") }}",
+            addToBasketURL: "{{ path("shop_add_product_to_basket") }}"
+        };
+    </script>
+    <script src="{{ asset('bundles/shop/js/helpers/productHelper.js') }}"></script>
+    {% if is_granted('ROLE_ADMIN') %}
+        <script src="{{ asset('bundles/admin/js/admin.js') }}"></script>
+    {% elseif is_granted('ROLE_USER') %}
+        <script src="{{ asset('bundles/shop/js/helpers/customerHelper.js') }}"></script>
+        <script src="{{ asset('bundles/shop/js/customer.js') }}"></script>
+    {% endif %}
+{% endblock %}

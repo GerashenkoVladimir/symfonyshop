@@ -1,0 +1,33 @@
+{# modal for profile.html.twig #}
+
+<table class="table table-bordered">
+    <caption class="text-center"><h3>Ваш заказ</h3></caption>
+    <tr class="info">
+        <th rowspan="2">№П/П</th>
+        <th rowspan="2">Наименование <br> товара</th>
+        <th rowspan="2">Производитель</th>
+        <th rowspan="2">Количество</th>
+        <th colspan="2">Цена</th>
+    </tr>
+    <tr class="info">
+        <td>за шт.</td>
+        <td>сума</td>
+    </tr>
+    {% set orderCost = 0 %}
+    {% for b in basket %}
+        <tr id="product_{{ b.id }}">
+            <td>{{ loop.index }}</td>
+            <td>{{ b.product.name }}</td>
+            <td>{{ b.product.producer.name }}</td>
+            <td>{{ b.quantity }}</td>
+            <td>{{ b.product.price }}</td>
+            {% set price = b.quantity * b.product.price %}
+            {% set orderCost = orderCost + price %}
+            <td>{{ price }}</td>
+        </tr>
+    {% endfor %}
+    <tr>
+        <td colspan="4"></td>
+        <td colspan="2">Стоимость заказа: {{ orderCost }}</td>
+    </tr>
+</table>

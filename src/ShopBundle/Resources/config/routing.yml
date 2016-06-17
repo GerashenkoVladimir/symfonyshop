@@ -3,5 +3,38 @@ shop_homepage:
     defaults: { _controller: ShopBundle:Products:index }
 
 shop_show_product:
-    path:     /show
+    path:     /show/category/{id}
     defaults: { _controller: ShopBundle:Products:show }
+    requirements:
+        id: \d+
+
+shop_registration:
+    path: /registration
+    defaults: { _controller: ShopBundle:Security:registration }
+
+shop_login:
+    path: /login
+    defaults: { _controller: ShopBundle:Security:login }
+
+shop_logout:
+    path: /logout
+
+shop_add_product_to_basket:
+    path: /addtobasket
+    defaults: { _controller: ShopBundle:Customer:addToBasket }
+
+shop_customer_profile:
+    path: /profile
+    defaults: { _controller: ShopBundle:Customer:profile }
+
+shop_remove_from_basket:
+    path: /profile/removefrombasket
+    defaults: { _controller: ShopBundle:Customer:removeFromBasket }
+
+shop_save_changed_quantity_basket:
+    path: /profile/savequantity
+    defaults: { _controller: ShopBundle:Customer:saveChangedQuantity }
+
+shop_submit_order_basket:
+    path: /profile/submitorder
+    defaults: { _controller: ShopBundle:Customer:submitOrder }

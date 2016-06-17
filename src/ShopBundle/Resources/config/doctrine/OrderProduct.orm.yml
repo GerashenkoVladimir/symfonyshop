@@ -1,0 +1,43 @@
+ShopBundle\Entity\OrderProduct:
+    type: entity
+    table: null
+    repositoryClass: ShopBundle\Repository\OrderProductRepository
+    uniqueConstraints:
+        unique_order_product:
+            columns: [ order_id, product_id ]
+    id:
+        id:
+            type: integer
+            id: true
+            options:
+                unsigned: true
+            generator:
+                strategy: AUTO
+    fields:
+        quantity:
+            type: smallint
+            options:
+                unsigned: true
+            nullable: false
+    manyToOne:
+        order:
+            targetEntity: ShopBundle\Entity\Order
+            joinColumns:
+                order_id:
+                    referencedColumnName: id
+                    options:
+                        unsigned: true
+                    nullable: false
+                    onDelete: CASCADE
+                    onUpdate: CASCADE
+        product:
+            targetEntity: ShopBundle\Entity\Product
+            joinColumns:
+                product_id:
+                    referencedColumnName: id
+                    options:
+                        unsigned: true
+                    nullable: false
+                    onDelete: CASCADE
+                    onUpdate: CASCADE
+    lifecycleCallbacks: {  }

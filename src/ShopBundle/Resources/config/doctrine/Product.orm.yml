@@ -1,0 +1,53 @@
+ShopBundle\Entity\Product:
+    type: entity
+    table: null
+    repositoryClass: ShopBundle\Repository\ProductRepository
+    uniqueConstraints:
+        unique_name_price:
+            columns: [ name, price ]
+    id:
+        id:
+            type: integer
+            options:
+                unsigned: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 128
+        price:
+            type: float
+        description:
+            type: text
+            nullable: true
+        imageName:
+            type: string
+            length: 128
+    manyToOne:
+        category:
+            targetEntity: ShopBundle\Entity\Category
+            joinColumns:
+                category_id:
+                    referencedColumnName: id
+                    options:
+                        unsigned: true
+                    nullable: false
+
+        producer:
+            targetEntity: ShopBundle\Entity\Producer
+            joinColumns:
+                producer_id:
+                    referencedColumnName: id
+                    options:
+                        unsigned: true
+                    nullable: false
+    oneToMany:
+        shoppingBasket:
+            targetEntity: ShopBundle\Entity\ShoppingBasket
+            mappedBy: product
+
+        orderProduct:
+            targetEntity: ShopBundle\Entity\OrderProduct
+            mappedBy: product
+    lifecycleCallbacks: {  }

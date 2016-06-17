@@ -1,11 +1,7 @@
-<?php
-$j = 0;
-$k=0;
-for ($i = 5; $i<= 80; $i++ ) {
-    $j = $j + $i*$i;
-    $k++;
-    echo $k." => $i\n";
-}
+<div class="someClass"></div>
+<div class="someClass"></div>
+<div class="someClass"></div>
+<div class="someClass"></div>
+<div class="someClass"></div>
 
-echo ($j/75)."\n";
-echo (5*5 + 80*80)/2;
+<script src="web/bundles/shop/js/"></script>

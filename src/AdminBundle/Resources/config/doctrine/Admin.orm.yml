@@ -1,0 +1,28 @@
+AdminBundle\Entity\Admin:
+    type: entity
+    table: null
+    repositoryClass: AdminBundle\Repository\AdminRepository
+    id:
+        id:
+            type: integer
+            id: true
+            options:
+                unsigned: true
+            generator:
+                strategy: AUTO
+    fields:
+        username:
+            type: string
+            length: '128'
+            unique: true
+        email:
+            type: string
+            length: '128'
+            unique: true
+        password:
+            type: string
+            length: '128'
+        role:
+            type: string
+            length: 45
+    lifecycleCallbacks: {  }

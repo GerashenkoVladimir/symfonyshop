@@ -1,0 +1,51 @@
+{% extends '@Admin/index.html.twig' %}
+
+{% block admin_panel %}
+
+    <div class="container">
+        {{ form_start(form, { 'attr': { 'class': 'form-horizontal thumbnail col-xs-5' }}) }}
+        <div class="form-group">
+            {{ form_label(form.name, '', {'label_attr': {'class': 'col-xs-4 control-label'}}) }}
+            <div class="col-xs-8">
+                {{ form_widget(form.name, { 'attr': { 'class': 'form-control' }}) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(form.price, '', {'label_attr': {'class': 'col-xs-4 control-label'}}) }}
+            <div class="col-xs-8">
+                {{ form_widget(form.price, { 'attr': { 'class': 'form-control' }}) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(form.description, '', {'label_attr': {'class': 'col-xs-4 control-label'}}) }}
+            <div class="col-xs-8">
+                {{ form_widget(form.description, { 'attr': { 'class': 'form-control' }}) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(form.category, '', {'label_attr': {'class': 'col-xs-4 control-label'}}) }}
+            <div class="col-xs-8">
+                {{ form_widget(form.category, { 'attr': { 'class': 'form-control' }}) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(form.producer, '', {'label_attr': {'class': 'col-xs-4 control-label'}}) }}
+            <div class="col-xs-8">
+                {{ form_widget(form.producer, { 'attr': { 'class': 'form-control' }}) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(form.image, '', {'label_attr': {'class': 'col-xs-4 control-label'}}) }}
+            <div class="col-xs-8">
+                {{ form_widget(form.image, { 'attr': { 'class': 'form-control' }}) }}
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-xs-offset-4 col-xs-8">
+                {{ form_widget(form.save, {'attr': { 'class': 'btn btn-success' }}) }}
+            </div>
+        </div>
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}

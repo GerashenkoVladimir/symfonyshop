@@ -1,0 +1,48 @@
+ShopBundle\Entity\Order:
+    type: entity
+    table: null
+    repositoryClass: ShopBundle\Repository\OrderRepository
+    id:
+        id:
+            type: integer
+            id: true
+            options:
+                unsigned: true
+            generator:
+                strategy: AUTO
+    fields:
+        orderNumber:
+            type: string
+            length: '10'
+            unique: true
+    manyToOne:
+        customer:
+            targetEntity: ShopBundle\Entity\Customer
+            joinColumns:
+                customer_id:
+                    referencedColumnName: id
+                    options:
+                        unsigned: true
+                    nullable: false
+#    manyToMany:
+#        product:
+#            targetEntity: ShopBundle\Entity\Product
+#            joinTable:
+#                name: order_product
+#                joinColumns:
+#                    order_id:
+#                        referencedColumnName: id
+#                        options:
+#                            unsigned: true
+#                        nullable: false
+#                inverseJoinColumn:
+#                    product_id:
+#                        referencedColumnName: id
+#                        options:
+#                            unsigned: true
+#                        nullable: false
+    oneToMany:
+        orderProduct:
+            targetEntity: ShopBundle\Entity\OrderProduct
+            mappedBy: order
+    lifecycleCallbacks: {  }

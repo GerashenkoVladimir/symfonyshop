@@ -1,0 +1,96 @@
+{% extends '@Shop/main_layout.html.twig' %}
+
+{% block content %}
+    <div class="container">
+        <table class="table table-bordered">
+            <caption class="text-center"><h3>Ваша корзина</h3></caption>
+            <tr class="info">
+                {#<th rowspan="2">№П/П</th>#}
+                <th rowspan="2">Наименование <br> товара</th>
+                <th rowspan="2">Производитель</th>
+                <th rowspan="2">Количество</th>
+                <th colspan="2">Цена</th>
+                <th rowspan="2"></th>
+            </tr>
+            <tr class="info">
+                <td>за шт.</td>
+                <td>сума</td>
+            </tr>
+            {% for b in basket %}
+                <tr id="product_{{ b.id }}">
+                    {#<td>{{ loop.index }}</td>#}
+                    <td>{{ b.product.name }}</td>
+                    <td>{{ b.product.producer.name }}</td>
+                    <td><input id="productQuantity_{{ b.id }}" type="number" min="1" max="100" value="{{ b.quantity }}"
+                               data-productid="{{ b.id }}"
+                               data-saved-quantity="{{ b.quantity }}">
+                        <button id="saveQuantity_{{ b.id }}" class="btn btn-success btn-xs saveQuantity disabled"
+                                title="Сохранить изменения"
+                                data-productid="{{ b.id }}"
+                                data-token="{{ csrf_token(b.id+app.user.id) }}">
+                            <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                        </button>
+                    </td>
+                    <td id="productPrice_{{ b.id }}">{{ b.product.price }}</td>
+                    {% set price = b.quantity * b.product.price %}
+                    <td class="summaryPrice" id="summaryPrice_{{ b.id }}">{{ price }}</td>
+                    <td>
+                        <button class="removeFromBasket btn btn-danger"
+                                data-productid="{{ b.id }}"
+                                data-token="{{ csrf_token(b.id+app.user.id) }}">
+                            Удалить
+                        </button>
+                    </td>
+                </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="5">
+                    <button id="prepareOrder" class="btn btn-primary"
+                            data-target="#makeOrderModal"
+                            data-toggle="modal"
+                            data-token="{{ csrf_token(app.user.username) }}">
+                        Оформить заказ
+                    </button>
+                </td>
+                <td>Стоимость заказа:<br><span id="orderCost"></span></td>
+            </tr>
+        </table>
+    </div>
+    <div class="modal fade" id="makeOrderModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">Перед тем как оформить заказ, проверьте пожалуйста правильность оформления
+                        еще раз.</h4>
+                </div>
+                {# submitOrderModal.html.twig #}
+                <div id="submitOrderModalBody" class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal">Отмена</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="saveOrder"
+                            data-token="{{ csrf_token(app.user.username) }}">
+                        Оформить
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $.routes = {
+            removeFromBasketURL: "{{ path("shop_remove_from_basket") }}",
+            saveQuantityURL: "{{ path("shop_save_changed_quantity_basket") }}",
+            submitOrderURL: "{{ path("shop_submit_order_basket") }}"
+        };
+    </script>
+    <script src="{{ asset('bundles/shop/js/helpers/productHelper.js') }}"></script>
+    <script src="{{ asset('bundles/shop/js/helpers/customerHelper.js') }}"></script>
+    <script src="{{ asset('bundles/shop/js/profile.js') }}"></script>
+{% endblock %}

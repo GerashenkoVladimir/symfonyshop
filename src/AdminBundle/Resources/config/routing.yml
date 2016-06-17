@@ -1,0 +1,32 @@
+admin_homepage:
+    path:     /admin
+    defaults: { _controller: AdminBundle:Admin:index }
+
+admin_login:
+    path: /admin/login
+    defaults: { _controller: AdminBundle:Admin:login}
+
+admin_logout:
+    path: /admin/logout
+
+admin_add_category:
+    path: /admin/addcategory
+    defaults: { _controller: AdminBundle:Admin:addCategory }
+
+admin_add_product:
+    path: /admin/addproduct
+    defaults: { _controller: AdminBundle:Admin:addProduct }
+
+admin_add_producer:
+    path: /admin/addproducer
+    defaults: { _controller: AdminBundle:Admin:addProducer}
+
+admin_remove_product:
+    path: /admin/removeproduct
+    defaults: { _controller: AdminBundle:Admin:removeProduct }
+
+admin_edit_product:
+    path: /admin/editproduct/{id}
+    defaults: { _controller: AdminBundle:Admin:editProduct }
+    requirements:
+        id: \d+

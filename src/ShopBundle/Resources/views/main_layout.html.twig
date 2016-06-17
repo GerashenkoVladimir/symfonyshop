@@ -5,7 +5,7 @@
     <title>{% block title %}Интернет магазин{% endblock %}</title>
     {% block stylesheets %}
         <link href="{{ asset('bundles/shop/bootstrap/css/bootstrap.css') }}" rel="stylesheet">
-        <link href="{{ asset('bundles/shop/bootstrap/css/style.css') }}" rel="stylesheet">
+        <link href="{{ asset('bundles/shop/css/style.css') }}" rel="stylesheet">
         <link href="{{ asset('bundles/shop/bootstrap/css/font-awesome.css') }}" rel="stylesheet">
     {% endblock %}
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
@@ -16,7 +16,7 @@
     <div class="navbar navbar-inverse navbar-static-top" id="main_menu">
         <div class="container">
             <div class="navbar-header">
-                <a href="#" class="navbar-brand">Интернет магазин</a>
+                <a href="{{ path('admin_homepage') }}" class="navbar-brand">Интернет магазин</a>
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-menu">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -31,14 +31,35 @@
                                     class="caret"></b></a>
                         <ul class="dropdown-menu">
                             {% for  category in categories %}
-                                <li><a href="#">{{ category.name }}</a></li>
+                                <li><a href="{{ path('shop_show_product', { 'id': category.id } ) }}">{{ category.name }}</a></li>
                             {% endfor %}
                         </ul>
                     </li>
                     <li><a class="main-menu-links" href="#">Поиск</a></li>
-                    <li><a class="main-menu-links" href="#" data-toggle="modal" data-target="#modal-1">Авторизация</a>
-                    </li>
-                    <li><a class="main-menu-links" href="#">Регистрация</a></li>
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') is empty %}
+                        <li><a class="main-menu-links" href="{{ path('shop_registration') }}">Регистрация</a></li>
+                        <li>
+                            <form action="{{ path('shop_login') }}" method="post" class="form-inline">
+                                <div class="form-group">
+                                    <label for="forEmail" class="sr-only">Email: </label>
+                                    <input type="email" class="form-control" name="_username" placeholder="Email"
+                                           id="forEmail">
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="forPassword">Пароль:</label>
+                                    <input type="password" class="form-control" name="_password" id="forPassword" placeholder="Пароль">
+                                </div>
+                                <button type="submit" class="btn btn-success">Войти</button>
+                                <input type="hidden" name="_csrf_token"
+                                       value="{{ csrf_token('authenticate') }}">
+                                {#{% if error is not empty %}#}
+                                    {#<p class="text-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</p>#}
+                                {#{% endif %}#}
+                            </form>
+                        </li>
+                    {% else %}
+                        <li><a class="main-menu-links" href="{{ path('shop_customer_profile') }}">Моя корзина <i class="fa fa-shopping-cart fa-lg"></i></a></li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
@@ -46,28 +67,7 @@
     {% block content %}
 
     {% endblock %}
-    <div class="modal fade" id="modal-1">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button class="close" type="button" data-dismiss="modal">
-                        <i class="fa fa-close"></i>
-                    </button>
-                    <h4 class="modal-title">Введите данные для авторизации</h4>
-                </div>
-                <div class="modal-body">
-                    <form action="" method="get" class="navbar-form">
-                        <input type="text" class="form-control" placeholder="E-mail" value="">
-                        <input type="password" class="form-control" placeholder="Пароль">
-                        <button type="submit" class="btn btn-primary btn-xs">
-                            <i class="fa fa-sign-in"></i>
-                            Войти
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+
 {% endblock %}
 {% block javascripts %}
     <script src="{{ asset('bundles/shop/js/jquery-1.12.3.js') }}"></script>
