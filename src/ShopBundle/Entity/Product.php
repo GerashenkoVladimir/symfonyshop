@@ -245,4 +245,43 @@ class Product
     {
         return $this->shoppingBasket;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $orderProduct;
+
+
+    /**
+     * Add orderProduct
+     *
+     * @param \ShopBundle\Entity\OrderProduct $orderProduct
+     *
+     * @return Product
+     */
+    public function addOrderProduct(\ShopBundle\Entity\OrderProduct $orderProduct)
+    {
+        $this->orderProduct[] = $orderProduct;
+
+        return $this;
+    }
+
+    /**
+     * Remove orderProduct
+     *
+     * @param \ShopBundle\Entity\OrderProduct $orderProduct
+     */
+    public function removeOrderProduct(\ShopBundle\Entity\OrderProduct $orderProduct)
+    {
+        $this->orderProduct->removeElement($orderProduct);
+    }
+
+    /**
+     * Get orderProduct
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getOrderProduct()
+    {
+        return $this->orderProduct;
+    }
 }

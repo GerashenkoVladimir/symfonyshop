@@ -3,7 +3,7 @@
 namespace ShopBundle\Entity;
 
 /**
- * Orders
+ * Order
  */
 class Order
 {
@@ -18,25 +18,21 @@ class Order
     private $orderNumber;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $orderProduct;
+
+    /**
      * @var \ShopBundle\Entity\Customer
      */
     private $customer;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * Constructor
      */
-    private $product;
-
-
-    /**
-     * Order constructor.
-     *
-     * @param ShoppingBasket $basket
-     */
-    public function __construct(ShoppingBasket $basket)
+    public function __construct()
     {
-        $this->
-        $this->product = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->orderProduct = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -74,7 +70,41 @@ class Order
     }
 
     /**
-     * Set customers
+     * Add orderProduct
+     *
+     * @param \ShopBundle\Entity\OrderProduct $orderProduct
+     *
+     * @return Order
+     */
+    public function addOrderProduct(\ShopBundle\Entity\OrderProduct $orderProduct)
+    {
+        $this->orderProduct[] = $orderProduct;
+
+        return $this;
+    }
+
+    /**
+     * Remove orderProduct
+     *
+     * @param \ShopBundle\Entity\OrderProduct $orderProduct
+     */
+    public function removeOrderProduct(\ShopBundle\Entity\OrderProduct $orderProduct)
+    {
+        $this->orderProduct->removeElement($orderProduct);
+    }
+
+    /**
+     * Get orderProduct
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getOrderProduct()
+    {
+        return $this->orderProduct;
+    }
+
+    /**
+     * Set customer
      *
      * @param \ShopBundle\Entity\Customer $customer
      *
@@ -88,46 +118,12 @@ class Order
     }
 
     /**
-     * Get customers
+     * Get customer
      *
      * @return \ShopBundle\Entity\Customer
      */
     public function getCustomer()
     {
         return $this->customer;
-    }
-
-    /**
-     * Add product
-     *
-     * @param \ShopBundle\Entity\Product $product
-     *
-     * @return Order
-     */
-    public function addProduct(\ShopBundle\Entity\Product $product)
-    {
-        $this->product[] = $product;
-
-        return $this;
-    }
-
-    /**
-     * Remove product
-     *
-     * @param \ShopBundle\Entity\Product $product
-     */
-    public function removeProduct(\ShopBundle\Entity\Product $product)
-    {
-        $this->product->removeElement($product);
-    }
-
-    /**
-     * Get products
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getProduct()
-    {
-        return $this->product;
     }
 }

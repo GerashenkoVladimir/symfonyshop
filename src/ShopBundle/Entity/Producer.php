@@ -3,7 +3,7 @@
 namespace ShopBundle\Entity;
 
 /**
- * Producers
+ * Producer
  */
 class Producer
 {

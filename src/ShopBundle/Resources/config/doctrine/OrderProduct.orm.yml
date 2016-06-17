@@ -1,10 +1,10 @@
-ShopBundle\Entity\ShoppingBasket:
+ShopBundle\Entity\OrderProduct:
     type: entity
     table: null
-    repositoryClass: ShopBundle\Repository\ShoppingBasketRepository
+    repositoryClass: ShopBundle\Repository\OrderProductRepository
     uniqueConstraints:
-        unique_customer_product:
-            columns: [ customer_id, product_id ]
+        unique_order_product:
+            columns: [ order_id, product_id ]
     id:
         id:
             type: integer
@@ -20,10 +20,10 @@ ShopBundle\Entity\ShoppingBasket:
                 unsigned: true
             nullable: false
     manyToOne:
-        customer:
-            targetEntity: ShopBundle\Entity\Customer
+        order:
+            targetEntity: ShopBundle\Entity\Order
             joinColumns:
-                customer_id:
+                order_id:
                     referencedColumnName: id
                     options:
                         unsigned: true
